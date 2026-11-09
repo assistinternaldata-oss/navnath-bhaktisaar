@@ -1,0 +1,23 @@
+{
+  "name": "श्री नवनाथ भक्तिसार",
+  "short_name": "नवनाथ भक्तिसार",
+  "description": "श्री नवनाथ भक्तिसार — ४० अध्यायांची संपूर्ण पोथी, पारायण, शोध आणि खुणा.",
+  "lang": "mr",
+  "dir": "ltr",
+  "id": "./",
+  "start_url": "./?source=pwa",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#fbf5ec",
+  "theme_color": "#a93a12",
+  "categories": ["books", "lifestyle", "education"],
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "पारायण", "short_name": "पारायण", "url": "./#/parayan", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "शोध", "short_name": "शोध", "url": "./#/search", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] }
+  ]
+}

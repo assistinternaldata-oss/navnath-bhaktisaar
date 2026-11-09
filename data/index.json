@@ -1,0 +1,364 @@
+{
+ "adhyays": [
+  {
+   "n": 1,
+   "ovis": 192,
+   "title": {
+    "mr": "मंगलाचरण, नऊ नारायणांपैकी मच्छिंद्रनाथाचा जन्म, त्यांची तपश्चर्या",
+    "hi": "मंगलाचरण; नौ नारायणों में से मच्छिंद्रनाथ का जन्म, उनकी तपस्या",
+    "en": "Invocation; birth of Machindranath, one of the nine Narayanas, and his penance"
+   }
+  },
+  {
+   "n": 2,
+   "ovis": 175,
+   "title": {
+    "mr": "मच्छिंद्रनाथास दत्तात्रेय व शंकराचे दर्शन; देवीचा उपदेश, सूर्यापासून वरप्राप्ति व ब्राह्मण भस्मदान",
+    "hi": "मच्छिंद्रनाथ को दत्तात्रेय और शंकर के दर्शन; देवी का उपदेश, सूर्य से वरदान और ब्राह्मण को भस्म-दान",
+    "en": "Machindranath receives darshan of Dattatreya and Shankar; the Goddess's teaching, a boon from Surya, and sacred ash given to a Brahmin"
+   }
+  },
+  {
+   "n": 3,
+   "ovis": 156,
+   "title": {
+    "mr": "मारुती व मच्छिंद्रनाथ यांची भेट; मच्छिंद्रनाथाचे स्त्रीराज्याकडे गमन",
+    "hi": "मारुति और मच्छिंद्रनाथ की भेंट; मच्छिंद्रनाथ का स्त्रीराज्य की ओर प्रस्थान",
+    "en": "Maruti and Machindranath meet; Machindranath sets out for Strirajya"
+   }
+  },
+  {
+   "n": 4,
+   "ovis": 162,
+   "title": {
+    "mr": "देवीच्या भैरवांची व दासींची फजिति; देवीचे दर्शन",
+    "hi": "देवी के भैरवों और दासियों की फजीहत; देवी के दर्शन",
+    "en": "The Goddess's Bhairavas and attendants are humbled; darshan of the Goddess"
+   }
+  },
+  {
+   "n": 5,
+   "ovis": 156,
+   "title": {
+    "mr": "वेताळाचा पराभव व त्यास सांगितलेल्या अटी",
+    "hi": "वेताल की पराजय और उसे बताई गई शर्तें",
+    "en": "Vetal is defeated and conditions are laid on him"
+   }
+  },
+  {
+   "n": 6,
+   "ovis": 157,
+   "title": {
+    "mr": "मच्छिंद्रनाथास कालिकास्त्राची प्राप्ति",
+    "hi": "मच्छिंद्रनाथ को कालिकास्त्र की प्राप्ति",
+    "en": "Machindranath obtains the Kalika-astra"
+   }
+  },
+  {
+   "n": 7,
+   "ovis": 170,
+   "title": {
+    "mr": "वीरभद्राबरोबर भांडण; परलोकी सन्मान; वज्रावतीचे दर्शन",
+    "hi": "वीरभद्र से संघर्ष; परलोक में सम्मान; वज्रावती के दर्शन",
+    "en": "Clash with Virabhadra; honoured in the other world; darshan of Vajravati"
+   }
+  },
+  {
+   "n": 8,
+   "ovis": 175,
+   "title": {
+    "mr": "सूर्याबरोबर युद्ध",
+    "hi": "सूर्य के साथ युद्ध",
+    "en": "Battle with Surya"
+   }
+  },
+  {
+   "n": 9,
+   "ovis": 196,
+   "title": {
+    "mr": "गोरक्षनाथाचा जन्म",
+    "hi": "गोरक्षनाथ का जन्म",
+    "en": "Birth of Gorakshanath"
+   }
+  },
+  {
+   "n": 10,
+   "ovis": 175,
+   "title": {
+    "mr": "गहिनीनाथाचा मातीच्या पुतळ्यापासून जन्म, मधुनाभा ब्राह्मणाकडून संगोपन",
+    "hi": "मिट्टी की मूर्ति से गहिनीनाथ का जन्म, मधुनाभ ब्राह्मण द्वारा पालन-पोषण",
+    "en": "Gahininath is born from a clay figure and raised by the Brahmin Madhunabha"
+   }
+  },
+  {
+   "n": 11,
+   "ovis": 184,
+   "title": {
+    "mr": "मच्छिंद्रनाथाचे स्त्रीराज्यात गमन, जालंदरनाथ जन्मकथा",
+    "hi": "मच्छिंद्रनाथ का स्त्रीराज्य में आगमन; जालिंदरनाथ की जन्मकथा",
+    "en": "Machindranath goes to Strirajya; the birth of Jalindarnath"
+   }
+  },
+  {
+   "n": 12,
+   "ovis": 204,
+   "title": {
+    "mr": "जालंदरनाथास वरप्राप्ति; कानिफनाथ जन्मकथा व त्यास वरप्राप्ति",
+    "hi": "जालिंदरनाथ को वरदान; कानिफनाथ की जन्मकथा और उन्हें वरदान",
+    "en": "Jalindarnath receives boons; the birth of Kanifnath and his boons"
+   }
+  },
+  {
+   "n": 13,
+   "ovis": 176,
+   "title": {
+    "mr": "जालंदरनाथाची मैनावतीस भेट, मैनावतीस उपदेश",
+    "hi": "जालिंदरनाथ की मैनावती से भेंट, मैनावती को उपदेश",
+    "en": "Jalindarnath meets Mainavati and gives her teaching"
+   }
+  },
+  {
+   "n": 14,
+   "ovis": 197,
+   "title": {
+    "mr": "बायकोच्या दुष्ट सल्ल्यानुसार गोपीचंदाने जालंदरनाथास खड्ड्यात पुरले",
+    "hi": "पत्नी की दुष्ट सलाह पर गोपीचंद ने जालिंदरनाथ को गड्ढे में गाड़ दिया",
+    "en": "On his wife's wicked advice, Gopichand buries Jalindarnath in a pit"
+   }
+  },
+  {
+   "n": 15,
+   "ovis": 195,
+   "title": {
+    "mr": "कानिफनाथ व मारुती यांचे भांडण, कानिफनाथाचे स्त्रीराज्यात आगमन",
+    "hi": "कानिफनाथ और मारुति का युद्ध; कानिफनाथ का स्त्रीराज्य में आगमन",
+    "en": "Kanifnath clashes with Maruti; Kanifnath arrives in Strirajya"
+   }
+  },
+  {
+   "n": 16,
+   "ovis": 195,
+   "title": {
+    "mr": "कानिफनाथ व गोरक्षनाथांची भेट, कानिफनाथांचे गोपीचंद राजाकडे आगमन",
+    "hi": "कानिफनाथ और गोरक्षनाथ की भेंट; कानिफनाथ का राजा गोपीचंद के पास आगमन",
+    "en": "Kanifnath meets Gorakshanath; Kanifnath comes to King Gopichand"
+   }
+  },
+  {
+   "n": 17,
+   "ovis": 195,
+   "title": {
+    "mr": "जालंदरनाथ व राजा गोपीचंद यांची भेट",
+    "hi": "जालिंदरनाथ और राजा गोपीचंद की भेंट",
+    "en": "Jalindarnath meets King Gopichand"
+   }
+  },
+  {
+   "n": 18,
+   "ovis": 211,
+   "title": {
+    "mr": "गोपीचंदाचे बहिणीच्या राज्यात आगमन; तिचा मृत्यु व गुरुकृपेने पुनः सजीवता",
+    "hi": "गोपीचंद का बहन के राज्य में आगमन; उसकी मृत्यु और गुरुकृपा से पुनर्जीवन",
+    "en": "Gopichand visits his sister's kingdom; her death and revival by the Guru's grace"
+   }
+  },
+  {
+   "n": 19,
+   "ovis": 193,
+   "title": {
+    "mr": "कलिंगाबरोबर गोरक्षनाथाचा स्त्रीराज्यात प्रवेश, मारुतीची दुर्दशा",
+    "hi": "कलिंगा के साथ गोरक्षनाथ का स्त्रीराज्य में प्रवेश; मारुति की दुर्दशा",
+    "en": "Gorakshanath enters Strirajya with Kalinga; Maruti's plight"
+   }
+  },
+  {
+   "n": 20,
+   "ovis": 219,
+   "title": {
+    "mr": "मैनाकिनीचे पूर्वचरित्र गोरक्षनाथाचे तबलावादन व गुरु मच्छिंद्रनाथाची भेट",
+    "hi": "मैनाकिनी का पूर्व-चरित्र; गोरक्षनाथ का तबला-वादन और गुरु मच्छिंद्रनाथ से भेंट",
+    "en": "Mainakini's past; Gorakshanath plays the tabla and meets his Guru Machindranath"
+   }
+  },
+  {
+   "n": 21,
+   "ovis": 194,
+   "title": {
+    "mr": "गोरक्षनाथास मोहविण्याचे मैनाकिनीचे सर्व प्रयत्‍न निष्फळ",
+    "hi": "गोरक्षनाथ को मोहित करने के मैनाकिनी के सभी प्रयास विफल",
+    "en": "All of Mainakini's attempts to entice Gorakshanath fail"
+   }
+  },
+  {
+   "n": 22,
+   "ovis": 198,
+   "title": {
+    "mr": "मच्छिंद्रनाथ व राणी मैनाकिनीची भेट; गोरक्षनाथाची संशयनिवृत्ति",
+    "hi": "मच्छिंद्रनाथ और रानी मैनाकिनी की भेंट; गोरक्षनाथ के संशय का निवारण",
+    "en": "Machindranath and Queen Mainakini meet; Gorakshanath's doubts are resolved"
+   }
+  },
+  {
+   "n": 23,
+   "ovis": 188,
+   "title": {
+    "mr": "मच्छिंद्रनाथास सोन्याच्या विटेचा मोह, त्याची समाराधना, गहिनीनाथास उपदेश",
+    "hi": "मच्छिंद्रनाथ को सोने की ईंट का मोह, समाराधना, गहिनीनाथ को उपदेश",
+    "en": "Machindranath's attachment to a gold brick; the feast; teaching to Gahininath"
+   }
+  },
+  {
+   "n": 24,
+   "ovis": 190,
+   "title": {
+    "mr": "भर्तरीची जन्मकथा, त्याचें बालपण व आईबापांचा वियोग",
+    "hi": "भर्तरी की जन्मकथा, उसका बचपन और माता-पिता से बिछोह",
+    "en": "The birth of Bhartari, his childhood and separation from his parents"
+   }
+  },
+  {
+   "n": 25,
+   "ovis": 196,
+   "title": {
+    "mr": "भर्तरीनाथाचें व्यापार्‍याबरोबर गमन; सुरोचन गंधर्वाची कथा",
+    "hi": "भर्तरीनाथ का व्यापारी के साथ प्रस्थान; सुरोचन गंधर्व की कथा",
+    "en": "Bhartarinath travels with a merchant; the story of the Gandharva Surochan"
+   }
+  },
+  {
+   "n": 26,
+   "ovis": 187,
+   "title": {
+    "mr": "सुरोचन गंधर्वाची कथा, त्याचा पुत्र विक्रम, त्याच्याकडे भर्तरीनाथाचें आगमन",
+    "hi": "सुरोचन गंधर्व की कथा, उसका पुत्र विक्रम, उसके पास भर्तरीनाथ का आगमन",
+    "en": "The story of Surochan Gandharva and his son Vikram; Bhartarinath comes to him"
+   }
+  },
+  {
+   "n": 27,
+   "ovis": 192,
+   "title": {
+    "mr": "विक्रम राजाचा सुमेधावतीबरोबर विवाह, भर्तरीचा पिंगलेबरोबर विवाह व दत्तात्रेयाची भेट",
+    "hi": "राजा विक्रम का सुमेधावती से विवाह; भर्तरी का पिंगला से विवाह और दत्तात्रेय से भेंट",
+    "en": "King Vikram marries Sumedhavati; Bhartari marries Pingala and meets Dattatreya"
+   }
+  },
+  {
+   "n": 28,
+   "ovis": 192,
+   "title": {
+    "mr": "पिंगलेचें भर्तृहरीवरील प्रेम; त्याच्या कसोटीकरितां पाठविलेला निरोप; त्याचा दुष्परिणाम",
+    "hi": "पिंगला का भर्तृहरि के प्रति प्रेम; उसकी परीक्षा हेतु भेजा गया संदेश और उसका दुष्परिणाम",
+    "en": "Pingala's love for Bhartrihari; a message sent to test it, and its tragic result"
+   }
+  },
+  {
+   "n": 29,
+   "ovis": 185,
+   "title": {
+    "mr": "गोरक्षनाथाच्या भेटीनें भर्तृहरीचा मोहनाश; भर्तृहरीस वैराग्यदीक्षा",
+    "hi": "गोरक्षनाथ की भेंट से भर्तृहरि का मोह-नाश; भर्तृहरि को वैराग्य-दीक्षा",
+    "en": "Meeting Gorakshanath ends Bhartrihari's delusion; he is initiated into renunciation"
+   }
+  },
+  {
+   "n": 30,
+   "ovis": 187,
+   "title": {
+    "mr": "भर्तृहरीस दत्तात्रेयाचें दर्शन, हातपाय तोडलेल्या शशांगर राजाच्या पुत्राची व गोरक्ष-मच्छिंद्रनाथाची भेट, पूर्व इतिहास",
+    "hi": "भर्तृहरि को दत्तात्रेय के दर्शन; राजा शशांगर के हाथ-पैर कटे पुत्र की गोरक्ष-मच्छिंद्रनाथ से भेंट; पूर्व इतिहास",
+    "en": "Bhartrihari's darshan of Dattatreya; King Shashangar's maimed son meets Goraksha and Machindranath; his past"
+   }
+  },
+  {
+   "n": 31,
+   "ovis": 183,
+   "title": {
+    "mr": "कृष्णागर राजपुत्राची कथा, त्याची तपश्चर्या",
+    "hi": "राजकुमार कृष्णागर की कथा और उसकी तपस्या",
+    "en": "The story of Prince Krishnagar and his penance"
+   }
+  },
+  {
+   "n": 32,
+   "ovis": 192,
+   "title": {
+    "mr": "त्रिविक्रमराजाची कथा, राजाच्या मृत्युनंतर त्याच्या देहांत मच्छिंद्रनाथाचा संचार",
+    "hi": "राजा त्रिविक्रम की कथा; राजा की मृत्यु के बाद उसकी देह में मच्छिंद्रनाथ का प्रवेश",
+    "en": "The story of King Trivikram; after his death Machindranath enters his body"
+   }
+  },
+  {
+   "n": 33,
+   "ovis": 230,
+   "title": {
+    "mr": "माणिक शेतकर्‍याची भेट; त्याची परीक्षा, चौरंगीनाथास बरोबर घेऊन मच्छिंद्रनाथाकरितां वीरभद्राबरोबर युद्ध",
+    "hi": "माणिक किसान से भेंट और उसकी परीक्षा; चौरंगीनाथ को साथ लेकर मच्छिंद्रनाथ के लिए वीरभद्र से युद्ध",
+    "en": "Meeting Manik the farmer and his test; with Chauranginath, a battle with Virabhadra for Machindranath"
+   }
+  },
+  {
+   "n": 34,
+   "ovis": 181,
+   "title": {
+    "mr": "वीरभद्रास सजीव केलें; मच्छिंद्रनाथानें त्रिविक्रम राजाचा देह सोडला; अडभंग कथा; रेवणनाथ जन्मकथा",
+    "hi": "वीरभद्र को पुनर्जीवित किया; मच्छिंद्रनाथ ने राजा त्रिविक्रम की देह छोड़ी; अडभंग कथा; रेवणनाथ की जन्मकथा",
+    "en": "Virabhadra is revived; Machindranath leaves King Trivikram's body; the story of Adbhang; the birth of Revannath"
+   }
+  },
+  {
+   "n": 35,
+   "ovis": 241,
+   "title": {
+    "mr": "रेवणनाथास सिद्धिची प्राप्ति; त्याची तपश्चर्या व वरप्राप्ति; सरस्वती ब्राह्मणाच्या मृत पुत्राकरिता यमलोकीं गमन",
+    "hi": "रेवणनाथ को सिद्धि की प्राप्ति, उनकी तपस्या और वरदान; सरस्वती ब्राह्मण के मृत पुत्रों के लिए यमलोक गमन",
+    "en": "Revannath gains siddhi, does penance and receives boons; he goes to Yamaloka for the Brahmin Saraswati's dead sons"
+   }
+  },
+  {
+   "n": 36,
+   "ovis": 238,
+   "title": {
+    "mr": "रेवणनाथानें सरस्वती ब्राह्मणाचे मृत पुत्र सजीव केले; नागनाथाची जन्मकथा",
+    "hi": "रेवणनाथ ने सरस्वती ब्राह्मण के मृत पुत्रों को जीवित किया; नागनाथ की जन्मकथा",
+    "en": "Revannath revives the Brahmin Saraswati's dead sons; the birth of Nagnath"
+   }
+  },
+  {
+   "n": 37,
+   "ovis": 188,
+   "title": {
+    "mr": "नागनाथास दत्ताचें दर्शन, नागनाथ व मच्छिंद्रनाथ यांचे भेट",
+    "hi": "नागनाथ को दत्त के दर्शन; नागनाथ और मच्छिंद्रनाथ की भेंट",
+    "en": "Nagnath receives darshan of Datta; Nagnath meets Machindranath"
+   }
+  },
+  {
+   "n": 38,
+   "ovis": 199,
+   "title": {
+    "mr": "चरपटीची जन्मकथा; सत्यश्रव्याकडे बालपण, नारदाचा सहवास",
+    "hi": "चरपटी की जन्मकथा; सत्यश्रवा के यहाँ बचपन, नारद का सान्निध्य",
+    "en": "The birth of Charpati; childhood with Satyashrava; in the company of Narada"
+   }
+  },
+  {
+   "n": 39,
+   "ovis": 192,
+   "title": {
+    "mr": "सत्यलोकी चरपटीनाथ व नारद यांचें वास्तव्य",
+    "hi": "सत्यलोक में चरपटीनाथ और नारद का निवास",
+    "en": "Charpatinath and Narada dwell in Satyaloka"
+   }
+  },
+  {
+   "n": 40,
+   "ovis": 199,
+   "title": {
+    "mr": "इंद्रानें केलेला सोमयाग; त्याकरिता सर्व नाथाचें आगमन,नाथांचा आशिर्वाद व समारोप",
+    "hi": "इंद्र द्वारा किया गया सोमयाग; उसके लिए सभी नाथों का आगमन, नाथों का आशीर्वाद और समापन",
+    "en": "Indra's Soma sacrifice; all the Naths arrive; their blessings and the conclusion"
+   }
+  }
+ ]
+}

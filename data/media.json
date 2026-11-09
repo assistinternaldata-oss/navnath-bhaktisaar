@@ -1,0 +1,166 @@
+{
+ "_help": "Paste a YouTube link and/or an audio file path for any adhyay. Leave blank to hide the button.",
+ "channel": "",
+ "adhyay": {
+  "1": {
+   "youtube": "",
+   "audio": ""
+  },
+  "2": {
+   "youtube": "",
+   "audio": ""
+  },
+  "3": {
+   "youtube": "",
+   "audio": ""
+  },
+  "4": {
+   "youtube": "",
+   "audio": ""
+  },
+  "5": {
+   "youtube": "",
+   "audio": ""
+  },
+  "6": {
+   "youtube": "",
+   "audio": ""
+  },
+  "7": {
+   "youtube": "",
+   "audio": ""
+  },
+  "8": {
+   "youtube": "",
+   "audio": ""
+  },
+  "9": {
+   "youtube": "",
+   "audio": ""
+  },
+  "10": {
+   "youtube": "",
+   "audio": ""
+  },
+  "11": {
+   "youtube": "",
+   "audio": ""
+  },
+  "12": {
+   "youtube": "",
+   "audio": ""
+  },
+  "13": {
+   "youtube": "",
+   "audio": ""
+  },
+  "14": {
+   "youtube": "",
+   "audio": ""
+  },
+  "15": {
+   "youtube": "",
+   "audio": ""
+  },
+  "16": {
+   "youtube": "",
+   "audio": ""
+  },
+  "17": {
+   "youtube": "",
+   "audio": ""
+  },
+  "18": {
+   "youtube": "",
+   "audio": ""
+  },
+  "19": {
+   "youtube": "",
+   "audio": ""
+  },
+  "20": {
+   "youtube": "",
+   "audio": ""
+  },
+  "21": {
+   "youtube": "",
+   "audio": ""
+  },
+  "22": {
+   "youtube": "",
+   "audio": ""
+  },
+  "23": {
+   "youtube": "",
+   "audio": ""
+  },
+  "24": {
+   "youtube": "",
+   "audio": ""
+  },
+  "25": {
+   "youtube": "",
+   "audio": ""
+  },
+  "26": {
+   "youtube": "",
+   "audio": ""
+  },
+  "27": {
+   "youtube": "",
+   "audio": ""
+  },
+  "28": {
+   "youtube": "",
+   "audio": ""
+  },
+  "29": {
+   "youtube": "",
+   "audio": ""
+  },
+  "30": {
+   "youtube": "",
+   "audio": ""
+  },
+  "31": {
+   "youtube": "",
+   "audio": ""
+  },
+  "32": {
+   "youtube": "",
+   "audio": ""
+  },
+  "33": {
+   "youtube": "",
+   "audio": ""
+  },
+  "34": {
+   "youtube": "",
+   "audio": ""
+  },
+  "35": {
+   "youtube": "",
+   "audio": ""
+  },
+  "36": {
+   "youtube": "",
+   "audio": ""
+  },
+  "37": {
+   "youtube": "",
+   "audio": ""
+  },
+  "38": {
+   "youtube": "",
+   "audio": ""
+  },
+  "39": {
+   "youtube": "",
+   "audio": ""
+  },
+  "40": {
+   "youtube": "",
+   "audio": ""
+  }
+ }
+}

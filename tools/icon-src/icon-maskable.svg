@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="38%" r="75%">
+      <stop offset="0" stop-color="#f6a640"/>
+      <stop offset="0.55" stop-color="#b4400f"/>
+      <stop offset="1" stop-color="#6e1a12"/>
+    </radialGradient>
+    <radialGradient id="disc" cx="50%" cy="40%" r="65%">
+      <stop offset="0" stop-color="#fffaf0"/>
+      <stop offset="1" stop-color="#f7e3c4"/>
+    </radialGradient>
+    
+  </defs>
+  <g>
+    <rect width="512" height="512" fill="url(#bg)"/>
+    <g fill="#ffe2b0" opacity="0.16"><path d="M256,256 L675.7,239.9 L675.7,272.1 Z"/><path d="M256,256 L672.1,313.0 L666.5,344.8 Z"/><path d="M256,256 L655.9,384.4 L644.9,414.7 Z"/><path d="M256,256 L627.5,451.9 L611.4,479.8 Z"/><path d="M256,256 L587.9,513.4 L567.1,538.1 Z"/><path d="M256,256 L538.1,567.1 L513.4,587.9 Z"/><path d="M256,256 L479.8,611.4 L451.9,627.5 Z"/><path d="M256,256 L414.7,644.9 L384.4,655.9 Z"/><path d="M256,256 L344.8,666.5 L313.0,672.1 Z"/><path d="M256,256 L272.1,675.7 L239.9,675.7 Z"/><path d="M256,256 L199.0,672.1 L167.2,666.5 Z"/><path d="M256,256 L127.6,655.9 L97.3,644.9 Z"/><path d="M256,256 L60.1,627.5 L32.2,611.4 Z"/><path d="M256,256 L-1.4,587.9 L-26.1,567.1 Z"/><path d="M256,256 L-55.1,538.1 L-75.9,513.4 Z"/><path d="M256,256 L-99.4,479.8 L-115.5,451.9 Z"/><path d="M256,256 L-132.9,414.7 L-143.9,384.4 Z"/><path d="M256,256 L-154.5,344.8 L-160.1,313.0 Z"/><path d="M256,256 L-163.7,272.1 L-163.7,239.9 Z"/><path d="M256,256 L-160.1,199.0 L-154.5,167.2 Z"/><path d="M256,256 L-143.9,127.6 L-132.9,97.3 Z"/><path d="M256,256 L-115.5,60.1 L-99.4,32.2 Z"/><path d="M256,256 L-75.9,-1.4 L-55.1,-26.1 Z"/><path d="M256,256 L-26.1,-55.1 L-1.4,-75.9 Z"/><path d="M256,256 L32.2,-99.4 L60.1,-115.5 Z"/><path d="M256,256 L97.3,-132.9 L127.6,-143.9 Z"/><path d="M256,256 L167.2,-154.5 L199.0,-160.1 Z"/><path d="M256,256 L239.9,-163.7 L272.1,-163.7 Z"/><path d="M256,256 L313.0,-160.1 L344.8,-154.5 Z"/><path d="M256,256 L384.4,-143.9 L414.7,-132.9 Z"/><path d="M256,256 L451.9,-115.5 L479.8,-99.4 Z"/><path d="M256,256 L513.4,-75.9 L538.1,-55.1 Z"/><path d="M256,256 L567.1,-26.1 L587.9,-1.4 Z"/><path d="M256,256 L611.4,32.2 L627.5,60.1 Z"/><path d="M256,256 L644.9,97.3 L655.9,127.6 Z"/><path d="M256,256 L666.5,167.2 L672.1,199.0 Z"/></g>
+    <circle cx="256" cy="256" r="166" fill="none" stroke="#f3c77a" stroke-width="4" opacity="0.7"/>
+    <circle cx="256" cy="256" r="150" fill="url(#disc)" stroke="#e7b864" stroke-width="7"/>
+    <text x="256" y="296" text-anchor="middle" font-family="Nirmala UI" font-weight="700"
+          font-size="132" fill="#7a1c12">नाथ</text>
+  </g>
+</svg>
