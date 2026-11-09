@@ -194,23 +194,31 @@ a.card:active { background: var(--surface-2); }
 .empty .ic { width: 40px; height: 40px; margin-bottom: 8px; color: var(--gold); }
 
 /* ===== hero (home) ===== */
+/* the logo's maroon lettering needs a light background, so the banner is cream in every theme */
+.hero, .lang-pick {
+  --logo-ink: #7a1c12;
+  background: radial-gradient(120% 95% at 50% 18%, #fffbf3, #fbeedb 55%, #f3d6a8);
+  color: var(--logo-ink);
+}
 .hero {
-  position: relative; overflow: hidden; text-align: center; color: var(--hero-ink);
-  background: radial-gradient(120% 95% at 50% 0%, var(--hero-1), var(--hero-2) 58%, var(--hero-3));
-  padding: calc(30px + var(--sa-top)) 16px 58px;
+  position: relative; overflow: hidden; text-align: center;
+  padding: calc(14px + var(--sa-top)) 16px 54px;
+  border-bottom: 1px solid #ecd2a8;
 }
 .hero::before {
   content: ''; position: absolute; inset: -40% -20% 0;
-  background: repeating-conic-gradient(from 0deg at 50% 12%, rgb(255 236 200 / 0.09) 0deg 5deg, transparent 5deg 12deg);
-  -webkit-mask: radial-gradient(closest-side at 50% 12%, #000 30%, transparent 100%);
-  mask: radial-gradient(closest-side at 50% 12%, #000 30%, transparent 100%);
+  background: repeating-conic-gradient(from 0deg at 50% 30%, rgb(232 137 43 / 0.07) 0deg 5deg, transparent 5deg 12deg);
+  -webkit-mask: radial-gradient(closest-side at 50% 30%, #000 25%, transparent 100%);
+  mask: radial-gradient(closest-side at 50% 30%, #000 25%, transparent 100%);
   pointer-events: none;
 }
 .hero-in { position: relative; }
-.orn { font-family: var(--font-pothi); font-size: 16px; letter-spacing: 0.04em; opacity: 0.9; }
-.hero h1 { font: 400 clamp(34px, 10vw, 50px)/1.25 var(--font-pothi); margin: 8px 0 4px; }
-.hero-en { font-size: 17px; letter-spacing: 0.06em; text-transform: uppercase; opacity: 0.85; margin: 0; }
-.hero .by { opacity: 0.85; margin: 6px 0 0; font-size: 15px; }
+.hero-logo { margin: 0; line-height: 0; }
+.hero-logo img, .lp-logo img { display: block; width: min(62vw, 250px); height: auto; margin: 0 auto; }
+.hero-en { font-size: 16px; letter-spacing: 0.06em; text-transform: uppercase; margin: 8px 0 0; font-weight: 600; }
+.hero .by { margin: 6px 0 0; font-size: 15px; color: #7a5636; }
+:root[data-theme='dark'] .hero, :root[data-theme='dark'] .lang-pick { filter: brightness(0.93); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme]) .hero, :root:not([data-theme]) .lang-pick { filter: brightness(0.93); } }
 .home { margin-top: -38px; position: relative; }
 
 /* ===== adhyay list ===== */
@@ -272,7 +280,7 @@ body[data-view='a'] .tabbar { display: none; }
 .ph-in h1 { flex: 1; margin: 0; font-size: 26px; font-weight: 700; }
 .ph-in .ib { margin: -6px -10px -6px 0; color: var(--muted); }
 .ph-in .ib:first-child { margin: -6px 0 -6px -10px; color: var(--text); }
-.hero-gear { position: absolute; z-index: 1; top: calc(6px + var(--sa-top)); right: 6px; color: var(--hero-ink); opacity: 0.85; }
+.hero-gear { position: absolute; z-index: 1; top: calc(6px + var(--sa-top)); right: 6px; color: var(--logo-ink); opacity: 0.8; }
 
 /* ===== videos ===== */
 .sec-head a { font-size: 15px; font-weight: 600; color: var(--accent); text-decoration: none; white-space: nowrap; }
@@ -612,14 +620,13 @@ mark { background: var(--mark); color: inherit; border-radius: 3px; padding: 0 1
 .lang-pick {
   position: fixed; inset: 0; z-index: 100;
   display: grid; place-items: center; padding: 24px;
-  background: radial-gradient(120% 90% at 50% 0%, var(--hero-1), var(--hero-2) 58%, var(--hero-3));
-  color: var(--hero-ink);
 }
 .lp-card { width: 100%; max-width: 360px; text-align: center; }
-.lp-card h1 { font: 400 clamp(34px, 10vw, 46px)/1.25 var(--font-pothi); margin: 8px 0 18px; }
-.lp-q { opacity: 0.9; margin-bottom: 16px; }
-.lp-btn { display: flex; margin-top: 10px; background: #fff8f0; color: #6e1a12; border: 0; font-size: 20px; }
-.lp-hint { font-size: 14px; opacity: 0.8; margin-top: 18px; }
+.lp-logo { margin: 0 0 14px; line-height: 0; }
+.lp-logo img { width: min(64vw, 260px); }
+.lp-q { margin-bottom: 14px; font-weight: 600; }
+.lp-btn { display: flex; margin-top: 10px; background: var(--logo-ink); color: #fff8f0; border: 0; font-size: 20px; }
+.lp-hint { font-size: 14px; color: #7a5636; margin-top: 18px; }
 
 /* ===== toasts ===== */
 #toasts {

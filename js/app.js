@@ -165,8 +165,7 @@ async function renderHome(my) {
     <header class="hero">
       <a class="ib hero-gear" href="#/settings" aria-label="${t('settings')}">${ic('sliders')}</a>
       <div class="hero-in">
-        <div class="orn">॥ अलख निरंजन ॥</div>
-        <h1 lang="mr">श्री नवनाथ भक्तिसार</h1>
+        <h1 class="hero-logo" lang="mr"><img src="icons/logo.webp" width="673" height="720" alt="श्री नवनाथ भक्तिसार पोथी" decoding="async"></h1>
         ${getLang() === 'en' ? '<p class="hero-en">Shri Navnath Bhaktisaar</p>' : ''}
         <p class="by">${t('author')}</p>
       </div>
@@ -1224,7 +1223,7 @@ function updateBars() {
   if (!native.isNative) return;
   const s = store.get();
   const darkTheme = s.theme === 'dark' || (s.theme === 'auto' && matchMedia('(prefers-color-scheme: dark)').matches);
-  native.setBarIcons(darkTheme || currentView === 'home' || !!$('.lang-pick'));
+  native.setBarIcons(darkTheme && currentView !== 'home' && !$('.lang-pick'));
 }
 
 function setupNative() {
@@ -1270,8 +1269,7 @@ function langPicker() {
   el.setAttribute('aria-modal', 'true');
   el.setAttribute('aria-labelledby', 'lp-h');
   el.innerHTML = `<div class="lp-card">
-    <div class="orn">॥ अलख निरंजन ॥</div>
-    <h1 id="lp-h" lang="mr">श्री नवनाथ भक्तिसार</h1>
+    <h1 id="lp-h" class="lp-logo" lang="mr"><img src="icons/logo.webp" width="673" height="720" alt="श्री नवनाथ भक्तिसार पोथी" decoding="async"></h1>
     <p class="lp-q">भाषा निवडा · भाषा चुनें · Choose language</p>
     ${Object.entries(LANGS).map(([k, v]) => `<button class="btn big lp-btn" type="button" data-lang="${k}" lang="${k}">${v.name}</button>`).join('')}
     <p class="lp-hint">पोथी मराठीतच राहील · The pothi text stays in Marathi</p>

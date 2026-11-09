@@ -114,7 +114,7 @@ npm install
 npm run sync
 ```
 
-`npm run sync` copies the web app into `www/` and from there into `android/` and `ios/`. Run it after any web change. `npm run assets` regenerates the app icons and splash screens from `assets/`, which `python tools/make_app_assets.py` draws.
+`npm run sync` copies the web app into `www/` and from there into `android/` and `ios/`. Run it after any web change. `npm run assets` regenerates the app icons and splash screens from `assets/`, which `python tools/make_logo_assets.py` draws from the logo (`assets/logo-source.webp`).
 
 ## Files
 
@@ -125,11 +125,10 @@ npm run sync
 | `data/media.json` | your YouTube and audio links |
 | `sw.js`, `manifest.webmanifest`, `icons/` | offline support and install |
 | `tools/build_data.py` | .docx → JSON converter |
-| `tools/make_icons.py` | redraws the icon (needs Inkscape) |
 | `tools/serve.py` | local server |
 | `fonts/` | the two typefaces, bundled so nothing loads from Google (`scripts/copy-fonts.mjs`) |
 | `embed.html` | lets the apps play YouTube videos (YouTube only plays embeds hosted on a website) |
 | `android/`, `ios/`, `capacitor.config.json`, `package.json` | the native app projects |
 | `js/native.js` | phone features (vibration, reminders, sharing) inside the apps; no effect on the website |
-| `assets/`, `tools/make_app_assets.py` | app icon and splash-screen sources |
+| `assets/logo-source.webp`, `tools/make_logo_assets.py` | the logo, and the script that makes every icon, splash screen, the home-screen banner (`icons/logo.webp`) and the Play graphics from it (needs Pillow and Inkscape) |
 | `.github/workflows/apps.yml` | cloud builds for Android and iOS |

@@ -6,7 +6,7 @@
   "scripts": {
     "web": "node scripts/copy-web.mjs",
     "sync": "node scripts/copy-web.mjs && cap sync",
-    "assets": "capacitor-assets generate --android --ios --iconBackgroundColor \"#a93a12\" --iconBackgroundColorDark \"#2a0e08\" --splashBackgroundColor \"#a93a12\" --splashBackgroundColorDark \"#14100d\"",
+    "assets": "capacitor-assets generate --android --ios --iconBackgroundColor \"#fbefdc\" --iconBackgroundColorDark \"#fbefdc\" --splashBackgroundColor \"#fbefdc\" --splashBackgroundColorDark \"#fbefdc\"",
     "serve": "python tools/serve.py"
   },
   "dependencies": {

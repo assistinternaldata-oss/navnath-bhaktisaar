@@ -8,7 +8,7 @@
   "start_url": "./?source=pwa",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#fbf5ec",
+  "background_color": "#fbefdc",
   "theme_color": "#a93a12",
   "categories": ["books", "lifestyle", "education"],
   "icons": [
