@@ -1,6 +1,6 @@
 import * as store from './store.js';
 import { t, num, setLang, getLang, LANGS, fmtDate } from './i18n.js';
-import { loadIndex, loadChapter, loadAll, loadMedia, mediaFor } from './data.js';
+import { loadIndex, loadChapter, loadAll, loadMedia, mediaFor, allVideos, findVideo } from './data.js';
 import { PLAN_DAYS, perDayRange, status as parayanStatus, todayISO, addDays } from './parayan.js';
 
 const APP_VERSION = '1.0.0';
@@ -69,9 +69,9 @@ function toast(msg, action) {
 const TABS = [
   ['home', '#/', 'navPothi', 'book'],
   ['parayan', '#/parayan', 'navParayan', 'diya'],
+  ['videos', '#/videos', 'navVideos', 'youtube'],
   ['search', '#/search', 'navSearch', 'search'],
   ['marks', '#/marks', 'navMarks', 'bookmark'],
-  ['settings', '#/settings', 'navSettings', 'sliders'],
 ];
 let currentView = 'home';
 
@@ -92,16 +92,19 @@ let cleanups = [];
 const onCleanup = (fn) => cleanups.push(fn);
 const scrollMemo = {};
 let visitedNonReader = false;
+let routeCount = 0;
 
 async function route() {
   if (currentView !== 'a') scrollMemo[currentView] = scrollY;
   cleanups.forEach((fn) => { try { fn(); } catch { /* ignore */ } });
   cleanups = [];
+  closeVideo();
   view.onclick = view.oninput = view.onsubmit = view.onchange = null;
   const my = ++token;
+  routeCount++;
 
   const { parts, query } = parseHash();
-  const name = ['a', 'parayan', 'search', 'marks', 'settings'].includes(parts[0]) ? parts[0] : 'home';
+  const name = ['a', 'parayan', 'videos', 'search', 'marks', 'settings'].includes(parts[0]) ? parts[0] : 'home';
   currentView = name;
   if (name !== 'a') visitedNonReader = true;
   document.body.dataset.view = name;
@@ -114,6 +117,7 @@ async function route() {
   switch (name) {
     case 'a': return renderReader(my, Number(parts[1]), parts[2] ? Number(parts[2]) : null);
     case 'parayan': await renderParayan(my); break;
+    case 'videos': await renderVideos(my); break;
     case 'search': renderSearch(my, query.get('q') || ''); break;
     case 'marks': await renderMarks(my); break;
     case 'settings': renderSettings(); break;
@@ -122,7 +126,12 @@ async function route() {
   if (my === token) scrollTo(0, name === 'search' ? 0 : scrollMemo[name] || 0);
 }
 
-const pageHead = (title) => `<header class="page-head"><h1>${esc(title)}</h1></header>`;
+// tab pages get a settings gear on the right; settings itself gets a back arrow
+const pageHead = (title, { back = false } = {}) => `<header class="page-head"><div class="ph-in">
+  ${back ? `<button class="ib" type="button" data-act="back-page" aria-label="${t('back')}">${ic('back')}</button>` : ''}
+  <h1>${esc(title)}</h1>
+  ${back ? '' : `<a class="ib" href="#/settings" aria-label="${t('settings')}">${ic('sliders')}</a>`}
+</div></header>`;
 
 const errorBox = () => `<div class="card error-box"><p>${t('loadError')}</p>
   <button class="btn" type="button" data-act="retry">${t('retry')}</button></div>`;
@@ -133,9 +142,9 @@ const titleOf = (a) => a.title[getLang()] || a.title.mr;
 // Home
 // =====================================================================
 async function renderHome(my) {
-  let index, media;
+  let index, media, vids;
   try {
-    [index, media] = await Promise.all([loadIndex(), loadMedia()]);
+    [index, media, vids] = await Promise.all([loadIndex(), loadMedia(), allVideos()]);
   } catch {
     if (my === token) { view.innerHTML = `<div class="wrap">${errorBox()}</div>`; view.onclick = retryHandler; }
     return;
@@ -146,6 +155,7 @@ async function renderHome(my) {
 
   view.innerHTML = `
     <header class="hero">
+      <a class="ib hero-gear" href="#/settings" aria-label="${t('settings')}">${ic('sliders')}</a>
       <div class="hero-in">
         <div class="orn">॥ अलख निरंजन ॥</div>
         <h1 lang="mr">श्री नवनाथ भक्तिसार</h1>
@@ -157,6 +167,7 @@ async function renderHome(my) {
       ${continueCard(s, index)}
       ${homeParayanCard(s)}
       <div id="install-banner-slot">${installBanner()}</div>
+      ${homeSeries(vids)}
       <section class="list-sec" aria-labelledby="all-h">
         <div class="sec-head"><h2 id="all-h">${t('allAdhyays')}</h2><span class="muted">${t('readCount', { n: readN })}</span></div>
         <ol class="alist">${index.map((a) => adhyayRow(a, s, media)).join('')}</ol>
@@ -203,11 +214,20 @@ function homeParayanCard(s) {
     </div></a>`;
 }
 
+function homeSeries(vids) {
+  const flat = vids.byAdhyay.flatMap(([c, vs]) => vs.filter((v) => !v.song && v.lang !== 'en').map((v) => ({ v, c })));
+  if (!flat.length) return '';
+  const latest = flat.slice(-8).reverse();
+  return `<section class="vsec" aria-labelledby="series-h">
+    <div class="sec-head"><h2 id="series-h">${t('series')}</h2><a href="#/videos">${t('seeAll')} ›</a></div>
+    ${videoRow(latest.map(({ v, c }) => videoCard(v, c)))}</section>`;
+}
+
 function adhyayRow(a, s, media) {
   const m = media.adhyay?.[String(a.n)] || {};
   const read = !!s.read[a.n];
   const extras = [
-    m.youtube ? ic('youtube', 'sm yt') : '',
+    m.videos?.length || m.youtube ? ic('youtube', 'sm yt') : '',
     m.audio ? ic('headphones', 'sm') : '',
   ].join('');
   return `<li><a class="arow${read ? ' read' : ''}" href="#/a/${a.n}">
@@ -283,10 +303,13 @@ async function renderReader(my, c, target) {
         <div class="ch-kicker">${t('adhyayN', { n: c })}</div>
         <h1 class="ch-title" lang="${getLang()}">${esc(titleOf(meta))}</h1>
         <div class="ch-meta">${t('ovis', { n: meta.ovis })}</div>
-        ${media.youtube || media.audio ? `<div class="ch-media">
-          ${media.youtube ? `<a class="btn" href="${esc(media.youtube)}" target="_blank" rel="noopener">${ic('youtube', 'yt')} ${t('watch')}</a>` : ''}
-          ${media.audio ? `<button class="btn" type="button" data-act="listen">${ic('headphones')} ${t('listen')}</button>` : ''}
-        </div>` : ''}
+        ${media.audio ? `<div class="ch-media">
+          <button class="btn" type="button" data-act="listen">${ic('headphones')} ${t('listen')}</button></div>` : ''}
+        ${media.videos.length ? `<div class="ch-videos">
+          <div class="chv-h">${ic('youtube', 'yt')} ${t('watchHere')}</div>
+          ${videoRow(media.videos.map((v) => videoCard(v, c, false)), media.videos.length === 1)}</div>`
+        : media.channel ? `<p class="soon small muted">${t('comingSoon')}
+          <a href="${esc(media.channel.subscribe || media.channel.url)}" target="_blank" rel="noopener">${t('subscribe')}</a></p>` : ''}
         ${resume ? `<button class="chip resume" type="button" data-act="resume">${t('resumeHere', { n: resume.n ?? resume.i })} ${ic('down', 'sm')}</button>` : ''}
       </header>
       ${ch.blocks.map((b) => blockHTML(b, c)).join('')}
@@ -536,6 +559,124 @@ function setupAudio(src, c, title) {
     document.body.classList.remove('has-audio');
   });
 }
+
+// =====================================================================
+// Videos (the Shri Darshan series on YouTube)
+// =====================================================================
+const thumb = (id) => `https://i.ytimg.com/vi/${id}/mqdefault.jpg`;
+
+function videoLabel(v, c) {
+  const bits = [];
+  if (c) bits.push(t('adhyayN', { n: c }));
+  if (v.song) bits.push(t('song'));
+  else if (v.full) bits.push(t('fullAdhyay'));
+  else if (v.part) bits.push(t('partN', { n: v.part }));
+  if (v.lang === 'en') bits.push('English');
+  return bits.join(' · ');
+}
+
+// videos with embedding switched off on YouTube ("embed": false) open on YouTube instead
+function videoCard(v, c, showAdhyay = true) {
+  const label = videoLabel(v, showAdhyay ? c : null);
+  const inner = `<span class="vthumb"><img src="${thumb(v.id)}" alt="" loading="lazy" decoding="async">
+      <span class="vplay">${ic('play')}</span>
+      ${v.min ? `<span class="vdur">${t('minutes', { n: v.min })}</span>` : ''}</span>
+    ${label ? `<span class="vlabel">${esc(label)}</span>` : ''}
+    ${v.title ? `<span class="vtitle" lang="${v.lang || 'hi'}">${esc(v.title)}</span>` : ''}`;
+  return v.embed === false
+    ? `<a class="vcard" href="https://www.youtube.com/watch?v=${encodeURIComponent(v.id)}" target="_blank" rel="noopener">${inner}</a>`
+    : `<button class="vcard" type="button" data-act="video" data-id="${esc(v.id)}">${inner}</button>`;
+}
+
+const videoRow = (cards, single = false) => `<div class="vrow${single ? ' one' : ''}">${cards.join('')}</div>`;
+
+function channelCard(ch, vids) {
+  const count = vids.byAdhyay.reduce((sum, [, vs]) => sum + vs.filter((v) => !v.song && v.lang !== 'en').length, 0);
+  return `<section class="card channel">
+    <div class="chan-row"><span class="chan-logo">${ic('youtube')}</span>
+      <div><b>${esc(ch.name || 'YouTube')}</b><div class="muted small">YouTube · ${t('episodes', { n: count })}</div></div></div>
+    <p>${t('channelBlurb')}</p>
+    <div class="chan-btns">
+      <a class="btn sub-btn" href="${esc(ch.subscribe || ch.url)}" target="_blank" rel="noopener">${t('subscribe')}</a>
+      ${ch.playlist ? `<a class="btn" href="${esc(ch.playlist)}" target="_blank" rel="noopener">${ic('youtube', 'yt')} ${t('playlist')}</a>` : ''}
+    </div></section>`;
+}
+
+async function renderVideos(my) {
+  let vids, index;
+  try {
+    [vids, index] = await Promise.all([allVideos(), loadIndex()]);
+  } catch {
+    if (my === token) { view.innerHTML = `${pageHead(t('navVideos'))}<div class="wrap">${errorBox()}</div>`; view.onclick = retryHandler; }
+    return;
+  }
+  if (my !== token) return;
+  const ch = vids.channel;
+  const lastWithVideo = vids.byAdhyay.at(-1)?.[0] ?? 0;
+  view.innerHTML = `${pageHead(t('navVideos'))}<div class="wrap">
+    ${ch ? channelCard(ch, vids) : ''}
+    ${vids.songs.length ? `<section class="vsec"><div class="sec-head"><h2>${t('songs')}</h2></div>
+      ${videoRow(vids.songs.map((v) => videoCard(v, null)))}</section>` : ''}
+    <div class="sec-head"><h2>${t('byAdhyay')}</h2></div>
+    ${vids.byAdhyay.map(([c, vs]) => `<section class="vgroup">
+      <a class="vg-h" href="#/a/${c}"><span class="anum sm" lang="mr">${num(c)}</span>
+        <span class="vg-t"><b>${t('adhyayN', { n: c })}</b><span class="muted small clamp1">${esc(titleOf(index[c - 1]))}</span></span>
+        ${ic('chev', 'muted')}</a>
+      ${videoRow(vs.map((v) => videoCard(v, c, false)))}</section>`).join('')}
+    ${ch && lastWithVideo < 40 ? `<p class="soon muted">${t('moreSoon')}
+      <a href="${esc(ch.subscribe || ch.url)}" target="_blank" rel="noopener">${t('subscribe')}</a></p>` : ''}
+  </div>`;
+  view.onclick = commonClicks;
+}
+
+// the in-app player: tap any video card
+async function openVideo(id) {
+  const found = await findVideo(id).catch(() => null);
+  const v = found?.v || { id, title: '' };
+  const c = found?.c || null;
+  const { parts } = parseHash();
+  const readingThis = parts[0] === 'a' && Number(parts[1]) === c;
+  closeVideo();
+  const el = document.createElement('div');
+  el.className = 'player';
+  el.setAttribute('role', 'dialog');
+  el.setAttribute('aria-modal', 'true');
+  el.setAttribute('aria-label', v.title || t('navVideos'));
+  el.innerHTML = `<div class="pl-backdrop" data-act="close-video"></div>
+    <div class="pl-sheet">
+      <div class="pl-frame">${navigator.onLine === false
+        ? `<p class="pl-off">${t('needsNet')}</p>`
+        : `<iframe src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(id)}?autoplay=1&rel=0&playsinline=1"
+            title="${esc(v.title || 'YouTube')}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`}</div>
+      <div class="pl-info">
+        ${videoLabel(v, c) ? `<div class="vlabel">${esc(videoLabel(v, c))}</div>` : ''}
+        ${v.title ? `<h2 lang="${v.lang || 'hi'}">${esc(v.title)}</h2>` : ''}
+        <div class="pl-actions">
+          ${c && !readingThis ? `<a class="btn primary sm" href="#/a/${c}" data-act="close-video">${ic('book')} ${t('readAdhyay')}</a>` : ''}
+          <a class="btn sm" href="https://www.youtube.com/watch?v=${encodeURIComponent(id)}" target="_blank" rel="noopener">${ic('youtube', 'yt')} ${t('openYoutube')}</a>
+          <button class="btn sm ghost pl-close" type="button" data-act="close-video">${ic('x')} ${t('close')}</button>
+        </div>
+      </div>
+    </div>`;
+  document.body.append(el);
+  document.body.classList.add('modal-open');
+  el.querySelector('.pl-close').focus({ preventScroll: true });
+}
+
+function closeVideo() {
+  const p = $('.player');
+  if (!p) return;
+  p.remove();
+  document.body.classList.remove('modal-open');
+}
+
+document.addEventListener('click', (e) => {
+  const card = e.target.closest('[data-act="video"]');
+  if (card) { e.preventDefault(); openVideo(card.dataset.id); return; }
+  if (e.target.closest('[data-act="close-video"]')) closeVideo(); // "Read the adhyay" link then navigates
+});
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeVideo(); });
 
 // =====================================================================
 // Parayan
@@ -824,7 +965,7 @@ function seg(key, options, current) {
 
 function renderSettings() {
   const s = store.get();
-  view.innerHTML = `${pageHead(t('settings'))}<div class="wrap settings">
+  view.innerHTML = `${pageHead(t('settings'), { back: true })}<div class="wrap settings">
     <section class="card"><h2>${t('language')}</h2>${seg('lang', Object.entries(LANGS).map(([k, v]) => [k, v.name]), getLang())}</section>
     <section class="card"><h2>${t('theme')}</h2>${seg('theme', [['auto', t('themeAuto')], ['light', t('themeLight')], ['sepia', t('themeSepia')], ['dark', t('themeDark')]], s.theme)}</section>
     <section class="card">
@@ -859,6 +1000,9 @@ function renderSettings() {
       scrollTo(0, y);
     } else if (act === 'reset') {
       if (confirm(t('resetConfirm'))) { store.reset(); toast('✓'); }
+    } else if (act === 'back-page') {
+      if (routeCount > 1) history.back();
+      else location.replace('#/');
     } else {
       commonClicks(e);
     }

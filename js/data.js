@@ -34,13 +34,55 @@ export function loadMedia() {
   return mediaP;
 }
 
+/** The 11-character video id from a YouTube link (or an id on its own). */
+export function videoId(url) {
+  const s = String(url || '').trim();
+  if (/^[\w-]{11}$/.test(s)) return s;
+  const m = s.match(/(?:youtu\.be\/|[?&]v=|shorts\/|embed\/|live\/)([\w-]{11})/);
+  return m ? m[1] : null;
+}
+
+// accepts {videos:[{id,…}]} and the older {youtube:"link"} form
+function videosOf(entry = {}) {
+  const list = Array.isArray(entry.videos)
+    ? entry.videos.map((v) => ({ ...v, id: videoId(v.id || v.url) })).filter((v) => v.id)
+    : [];
+  const legacy = videoId(entry.youtube);
+  if (legacy && !list.some((v) => v.id === legacy)) list.push({ id: legacy, title: '' });
+  return list;
+}
+
 export async function mediaFor(n) {
   const m = await loadMedia();
   const entry = m.adhyay?.[String(n)] ?? {};
   return {
-    youtube: (entry.youtube || '').trim(),
+    videos: videosOf(entry),
     audio: (entry.audio || '').trim(),
+    channel: m.channel?.url ? m.channel : null,
   };
+}
+
+/** Everything for the Videos tab. */
+export async function allVideos() {
+  const m = await loadMedia();
+  const byAdhyay = [];
+  for (let n = 1; n <= 40; n++) {
+    const v = videosOf(m.adhyay?.[String(n)]);
+    if (v.length) byAdhyay.push([n, v]);
+  }
+  const songs = (m.songs || []).map((v) => ({ ...v, id: videoId(v.id || v.url) })).filter((v) => v.id);
+  return { channel: m.channel?.url ? m.channel : null, byAdhyay, songs };
+}
+
+/** A video and the adhyay it belongs to (if any). */
+export async function findVideo(id) {
+  const { byAdhyay, songs } = await allVideos();
+  for (const [c, vs] of byAdhyay) {
+    const v = vs.find((x) => x.id === id);
+    if (v) return { v, c };
+  }
+  const s = songs.find((x) => x.id === id);
+  return s ? { v: s, c: s.adhyay || null } : null;
 }
 
 function ok(r) {

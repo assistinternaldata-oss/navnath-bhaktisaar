@@ -7,7 +7,8 @@ An installable web app (PWA) for reading the complete Navnath Bhaktisaar pothi o
 - Search across the whole pothi, bookmarks on any ovi, and "continue where you left off"
 - Menus in मराठी, हिंदी or English (the pothi text stays Marathi)
 - Light, pothi (sepia) and dark themes; adjustable text size; keeps the screen on while reading
-- Buttons for each adhyay's YouTube episode and audio recording, shown once you add the links
+- The Shri Darshan Hindi episodes play inside the app: a Videos tab (channel card with Subscribe, Navnath songs, every episode by adhyay), the latest episodes on the home screen, and each adhyay's episodes at the top of the adhyay
+- An audio player for each adhyay once you add recordings
 
 Progress, bookmarks and parayans are stored only on the reader's device; there is no server or account.
 
@@ -19,18 +20,27 @@ python tools/serve.py
 
 Open http://localhost:5180. Opening `index.html` directly from the folder won't work, because browsers block loading the data files that way.
 
-## Add YouTube episodes and audio
+## Add new episodes, songs and audio
 
-Edit `data/media.json`. Each adhyay has two fields:
+Everything lives in `data/media.json`. When you publish a new episode, add a line to that adhyay's `videos`:
 
 ```json
-"15": { "youtube": "https://youtu.be/XXXXXXXXXXX", "audio": "audio/adhyay-15.mp3" }
+"16": {
+ "videos": [
+  {"id": "AbCdEfGhIjK", "title": "कानिफनाथ और गोरक्षनाथ की भेंट", "min": 20, "part": 1}
+ ],
+ "audio": ""
+}
 ```
 
-- **youtube**: any YouTube link. A "Watch Hindi episode" button appears on that adhyay.
-- **audio**: put an MP3 in an `audio/` folder next to `index.html` and write its path, or paste a full https link to an MP3 hosted elsewhere. A player bar appears at the bottom of that adhyay. Audio isn't stored offline, because the files are large.
+- **id**: the 11 characters after `watch?v=` in the video's link (a full YouTube link also works).
+- **title**: the text shown under the thumbnail. **min**: the length in minutes.
+- Optional: `"part": 2` for multi-part adhyays, `"full": true` for a complete-adhyay video, `"lang": "en"` for an English version, `"song": true` for a song.
+- `"embed": false` makes the card open on YouTube instead of the in-app player. Use it for videos with **Allow embedding** switched off in YouTube Studio; right now that's only the "आदेश" theme song. If you switch embedding on for it, remove that flag.
+- **songs** at the bottom of the file is the "Navnath songs" row in the Videos tab. **channel** holds the Subscribe and playlist links.
+- **audio**: put an MP3 in an `audio/` folder next to `index.html` and write its path (`audio/adhyay-16.mp3`), or paste a full https link. A player bar appears at the bottom of that adhyay. Audio isn't stored offline, because the files are large.
 
-Leave a field empty (`""`) to hide its button. The app checks for new links every time it opens.
+Adhyays with no videos show "Hindi episode coming soon — Subscribe". The app re-reads this file every time it opens.
 
 ## Correct the pothi text
 

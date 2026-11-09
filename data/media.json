@@ -1,166 +1,222 @@
 {
- "_help": "Paste a YouTube link and/or an audio file path for any adhyay. Leave blank to hide the button.",
- "channel": "",
+ "_help": "YouTube videos and audio for the app. videos: id = the 11-character code after watch?v= ; title as you want it shown; min = length in minutes; optional part (1, 2, 3…), full: true (whole adhyay), lang: \"en\", song: true, embed: false (opens in YouTube instead of the in-app player, for videos with embedding switched off). audio: path like audio/adhyay-05.mp3 or a full https link. Leave lists empty to hide.",
+ "channel": {
+  "name": "Shri Darshan",
+  "url": "https://www.youtube.com/channel/UCIHxqtVp_xXPwVemV4yaOCA",
+  "subscribe": "https://www.youtube.com/channel/UCIHxqtVp_xXPwVemV4yaOCA?sub_confirmation=1",
+  "playlist": "https://www.youtube.com/playlist?list=PLghJD9qBNf6ZFNDoWjnncPShAyWf5Lcio"
+ },
  "adhyay": {
   "1": {
-   "youtube": "",
+   "videos": [
+    {"id": "ZUnQeEqdhSs", "title": "मछली के गर्भ से कैसे हुआ मच्छिंद्रनाथ का दिव्य जन्म?", "min": 11}
+   ],
    "audio": ""
   },
   "2": {
-   "youtube": "",
+   "videos": [
+    {"id": "kJCx4obkb2E", "title": "जब मच्छिंद्रनाथ के सामने खुला एक गहरा दिव्य रहस्य!", "min": 11}
+   ],
    "audio": ""
   },
   "3": {
-   "youtube": "",
+   "videos": [
+    {"id": "5Z3plFVSKLc", "title": "हनुमानजी ने ली मच्छिंद्रनाथ की दिव्य परीक्षा — सिद्धियों का संग्राम", "min": 11}
+   ],
    "audio": ""
   },
   "4": {
-   "youtube": "",
+   "videos": [
+    {"id": "3pRUsP-dXCQ", "title": "मच्छिंद्रनाथ से टकराई योगिनी सेना — हिंगलाज देवी की दिव्य परीक्षा", "min": 8}
+   ],
    "audio": ""
   },
   "5": {
-   "youtube": "",
+   "videos": [
+    {"id": "vAW7cHdATGA", "title": "बारामल्हार के भयावह वन में मच्छिंद्रनाथ और वेताल का महासंग्राम!", "min": 13},
+    {"id": "Cy1qJvzqeMA", "title": "शिव स्तुति — कोटि नमन दिगम्बरा", "min": 3, "song": true}
+   ],
    "audio": ""
   },
   "6": {
-   "youtube": "",
+   "videos": [
+    {"id": "0nxeFAREW2w", "title": "माँ महाकालिका और मच्छिंद्रनाथ का दिव्य महासंग्राम!", "min": 19}
+   ],
    "audio": ""
   },
   "7": {
-   "youtube": "",
+   "videos": [
+    {"id": "FnkvrEInByU", "title": "जब वीरभद्र ने मच्छिंद्रनाथ को युद्ध की चुनौती दी!", "min": 27, "part": 1},
+    {"id": "24LEaLvzSkE", "title": "मच्छिंद्रनाथ की सात वर्षों की दिव्य यात्रा — वैकुंठ से वज्रवन तक", "min": 12, "part": 2}
+   ],
    "audio": ""
   },
   "8": {
-   "youtube": "",
+   "videos": [
+    {"id": "KFZgoi2YAEY", "title": "जब मच्छिंद्रनाथ ने राजा को भूमि से चिपका दिया! — स्पर्शास्त्र का चमत्कार", "min": 20, "part": 1},
+    {"id": "qxb7UMhi-_Y", "title": "मच्छिंद्रनाथ ने सूर्यदेव का रथ पृथ्वी पर क्यों गिरा दिया?", "min": 25, "part": 2}
+   ],
    "audio": ""
   },
   "9": {
-   "youtube": "",
+   "videos": [
+    {"id": "G6UVeNdenaU", "title": "गोरक्षनाथ का दिव्य जन्म और अद्भुत नेत्र-त्याग", "min": 42, "full": true},
+    {"id": "3HhYXIIC4mw", "title": "12 वर्षों बाद गोबर के ढेर से जीवित निकला बालक!", "min": 16, "part": 1},
+    {"id": "6cdUshAqXVw", "title": "Divine Birth and Extraordinary Eye Sacrifice of Gorakshnath", "min": 42, "full": true, "lang": "en"}
+   ],
    "audio": ""
   },
   "10": {
-   "youtube": "",
+   "videos": [
+    {"id": "rDv4WbSSBRA", "title": "गोरक्षनाथ ने मिट्टी से कैसे प्रकट किए गहिनीनाथ?", "min": 17}
+   ],
    "audio": ""
   },
   "11": {
-   "youtube": "",
+   "videos": [
+    {"id": "S5ZBs1X-IR4", "title": "हनुमान का वचन और स्त्री राज्य की रहस्यमयी कथा", "min": 18, "part": 1},
+    {"id": "bYn68QlKd6A", "title": "मच्छिंद्रनाथ — योगी या राजा? मीननाथ का जन्म", "min": 25, "part": 2},
+    {"id": "jODzz1jN_zw", "title": "अग्निदेव ने जालिंदरनाथ को अपना पुत्र क्यों कहा?", "min": 27, "part": 3}
+   ],
    "audio": ""
   },
   "12": {
-   "youtube": "",
+   "videos": [
+    {"id": "jiDOGGhTYgs", "title": "जालिंदरनाथ की 12 वर्षों की साधना और कानिफनाथ का जन्म", "min": 62, "full": true},
+    {"id": "sHfdGaf09tM", "title": "क्या जालिंदरनाथ पूरी कर पाएँगे देवताओं की शर्त?", "min": 31, "part": 1}
+   ],
    "audio": ""
   },
   "13": {
-   "youtube": "",
+   "videos": [
+    {"id": "EY8wJ8Z7HZs", "title": "महादेव ने सौंपा कौन-सा दिव्य दायित्व?", "min": 16, "part": 1},
+    {"id": "yqQtD5KsvwI", "title": "मृत्यु का भय किसे है? मैनावती का प्रश्न, जालिंदरनाथ का ज्ञान", "min": 22, "part": 2}
+   ],
    "audio": ""
   },
   "14": {
-   "youtube": "",
+   "videos": [
+    {"id": "0HLn43Hzj-s", "title": "जालिंदरनाथ के विरुद्ध किसने रचा षड्यंत्र?", "min": 21}
+   ],
    "audio": ""
   },
   "15": {
-   "youtube": "",
+   "videos": [
+    {"id": "N6XFJZC3ehE", "title": "क्या मच्छिंद्रनाथ तक पहुँचेंगे गोरक्षनाथ?", "min": 13, "part": 1},
+    {"id": "FS2pWdENGOs", "title": "मच्छिंद्रनाथ के लिए हनुमान ने कानिफनाथ से क्या माँगा?", "min": 18, "part": 2}
+   ],
    "audio": ""
   },
   "16": {
-   "youtube": "",
+   "videos": [],
    "audio": ""
   },
   "17": {
-   "youtube": "",
+   "videos": [],
    "audio": ""
   },
   "18": {
-   "youtube": "",
+   "videos": [],
    "audio": ""
   },
   "19": {
-   "youtube": "",
+   "videos": [],
    "audio": ""
   },
   "20": {
-   "youtube": "",
+   "videos": [],
    "audio": ""
   },
   "21": {
-   "youtube": "",
+   "videos": [],
    "audio": ""
   },
   "22": {
-   "youtube": "",
+   "videos": [],
    "audio": ""
   },
   "23": {
-   "youtube": "",
+   "videos": [],
    "audio": ""
   },
   "24": {
-   "youtube": "",
+   "videos": [],
    "audio": ""
   },
   "25": {
-   "youtube": "",
+   "videos": [],
    "audio": ""
   },
   "26": {
-   "youtube": "",
+   "videos": [],
    "audio": ""
   },
   "27": {
-   "youtube": "",
+   "videos": [],
    "audio": ""
   },
   "28": {
-   "youtube": "",
+   "videos": [],
    "audio": ""
   },
   "29": {
-   "youtube": "",
+   "videos": [],
    "audio": ""
   },
   "30": {
-   "youtube": "",
+   "videos": [],
    "audio": ""
   },
   "31": {
-   "youtube": "",
+   "videos": [],
    "audio": ""
   },
   "32": {
-   "youtube": "",
+   "videos": [],
    "audio": ""
   },
   "33": {
-   "youtube": "",
+   "videos": [],
    "audio": ""
   },
   "34": {
-   "youtube": "",
+   "videos": [],
    "audio": ""
   },
   "35": {
-   "youtube": "",
+   "videos": [],
    "audio": ""
   },
   "36": {
-   "youtube": "",
+   "videos": [],
    "audio": ""
   },
   "37": {
-   "youtube": "",
+   "videos": [],
    "audio": ""
   },
   "38": {
-   "youtube": "",
+   "videos": [],
    "audio": ""
   },
   "39": {
-   "youtube": "",
+   "videos": [],
    "audio": ""
   },
   "40": {
-   "youtube": "",
+   "videos": [],
    "audio": ""
   }
- }
+ },
+ "songs": [
+  {"id": "YAKG_t_Gga0", "title": "आदेश : The Divine Call — नवनाथ मालिका थीम गीत", "min": 4, "embed": false},
+  {"id": "YoW_d1W-KKM", "title": "Rise of Gorakshnath — आदेश", "min": 4},
+  {"id": "As66vpfD_qM", "title": "The Divine Rise of Machindranath — नवनाथ उदय", "min": 3},
+  {"id": "TsAIPGrXCzg", "title": "मच्छिंद्रनाथ — तुम आये तो दिन बदल गये", "min": 3},
+  {"id": "5aJtBEHg2Kk", "title": "ॐ शिव गोरक्ष योगी प्रार्थना", "min": 4},
+  {"id": "Cy1qJvzqeMA", "title": "शिव स्तुति — कोटि नमन दिगम्बरा", "min": 3, "adhyay": 5},
+  {"id": "bFjYmvX-1FA", "title": "कौन हैं मैनाकिनी? — मैनाकिनी गीत", "min": 5},
+  {"id": "s4l3D250wj4", "title": "शिव स्तुति — आशुतोष शशांक शेखर", "min": 3},
+  {"id": "U-2se6bjlZk", "title": "अहम से राम तक — मच्छिंद्रनाथ का राजा पाशुपत को उपदेश", "min": 5}
+ ]
 }

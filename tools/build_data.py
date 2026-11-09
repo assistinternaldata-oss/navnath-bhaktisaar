@@ -169,9 +169,10 @@ def main():
     media = DATA / "media.json"
     if not media.exists():
         media.write_text(json.dumps({
-            "_help": "Paste a YouTube link and/or an audio file path for any adhyay. Leave blank to hide the button.",
-            "channel": "",
-            "adhyay": {str(n): {"youtube": "", "audio": ""} for n in range(1, 41)},
+            "_help": "videos: [{\"id\": \"<11-character YouTube id>\", \"title\": \"…\", \"min\": 12, \"part\": 1}] per adhyay; audio: path or https link. Leave empty to hide.",
+            "channel": {"name": "", "url": "", "subscribe": "", "playlist": ""},
+            "adhyay": {str(n): {"videos": [], "audio": ""} for n in range(1, 41)},
+            "songs": [],
         }, ensure_ascii=False, indent=1), encoding="utf8")
 
     # places where the source's own numbering skips (merged/missing ovis, typos)
