@@ -87,9 +87,34 @@ The app is plain static files, with no build step. Upload the whole `bhaktisaar-
 
 It must be served over https for offline mode and "Install app" to work. Once it's live, readers install it from the browser menu (Android: "Install app"; iPhone: Share → Add to Home Screen) or from Settings in the app.
 
-**Play Store**: once the site is live, https://www.pwabuilder.com can wrap the same URL as an Android app (a Trusted Web Activity) for the Play Store.
-
 **After an update**: edits to existing files reach readers on their next launch. If you add or rename files, also bump `VERSION` in `sw.js`.
+
+## Android and iOS apps
+
+The same code is packaged as native apps with [Capacitor](https://capacitorjs.com) (app ID `shop.shridarshan.navnath`). The pothi text, fonts and icons ship inside the apps. The **video and mantra lists are read from the website**, so new episodes and mantras appear in the apps without a store update. The apps add phone vibration for the jap counter, keep the screen on, native sharing, the Android back button, and a daily parayan reminder (Settings).
+
+**Builds run on GitHub** (`.github/workflows/apps.yml`), so nothing needs installing here and no Mac is needed. On every push:
+- **Android**: an installable test APK, under the repository's Actions tab → latest "Build apps" run → Artifacts → `navnath-android-test-apk`.
+- **iOS**: a check that the app compiles.
+
+To produce store builds, add these repository secrets (Settings → Secrets and variables → Actions):
+
+| Secret | What it is |
+| --- | --- |
+| `ANDROID_KEYSTORE_BASE64`, `ANDROID_KEYSTORE_PASSWORD`, `ANDROID_KEY_ALIAS`, `ANDROID_KEY_PASSWORD` | the Play upload key; with these the build also produces `navnath-android-play-bundle` (an `.aab` for Play Console) |
+| `APPLE_API_KEY_ID`, `APPLE_API_ISSUER_ID`, `APPLE_API_KEY_P8`, `APPLE_TEAM_ID` | an App Store Connect API key (Users and Access → Integrations, role App Manager) and your Team ID; with these the build signs the iOS app and uploads it to TestFlight |
+
+**Working on the native projects locally** (needs Node; Android Studio for Android, a Mac with Xcode for iOS):
+
+```bash
+npm install
+```
+
+```bash
+npm run sync
+```
+
+`npm run sync` copies the web app into `www/` and from there into `android/` and `ios/`. Run it after any web change. `npm run assets` regenerates the app icons and splash screens from `assets/`, which `python tools/make_app_assets.py` draws.
 
 ## Files
 
@@ -102,3 +127,9 @@ It must be served over https for offline mode and "Install app" to work. Once it
 | `tools/build_data.py` | .docx → JSON converter |
 | `tools/make_icons.py` | redraws the icon (needs Inkscape) |
 | `tools/serve.py` | local server |
+| `fonts/` | the two typefaces, bundled so nothing loads from Google (`scripts/copy-fonts.mjs`) |
+| `embed.html` | lets the apps play YouTube videos (YouTube only plays embeds hosted on a website) |
+| `android/`, `ios/`, `capacitor.config.json`, `package.json` | the native app projects |
+| `js/native.js` | phone features (vibration, reminders, sharing) inside the apps; no effect on the website |
+| `assets/`, `tools/make_app_assets.py` | app icon and splash-screen sources |
+| `.github/workflows/apps.yml` | cloud builds for Android and iOS |

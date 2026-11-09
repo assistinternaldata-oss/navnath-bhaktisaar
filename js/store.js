@@ -13,6 +13,7 @@ const DEFAULTS = {
   parayan: null,         // { days, start: 'YYYY-MM-DD', done: { [adhyay]: ts }, startedAt }
   history: [],           // [{ days, start, end }]
   japa: {},              // { [mantraId]: { count, rounds, total, target } }
+  reminder: { on: false, time: '06:00' }, // daily parayan reminder (apps only)
 };
 
 let state = load();

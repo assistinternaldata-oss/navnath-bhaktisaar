@@ -2,6 +2,7 @@ import * as store from './store.js';
 import { t, num, setLang, getLang, LANGS, fmtDate } from './i18n.js';
 import { loadIndex, loadChapter, loadAll, loadMedia, mediaFor, allVideos, findVideo, loadMantras } from './data.js';
 import { PLAN_DAYS, perDayRange, status as parayanStatus, todayISO, addDays } from './parayan.js';
+import * as native from './native.js';
 
 const APP_VERSION = '1.0.0';
 
@@ -50,6 +51,7 @@ function applyPrefs() {
     if (c) $('meta[name="theme-color"]').content = c;
   });
   renderNav();
+  updateBars();
 }
 matchMedia('(prefers-color-scheme: dark)').addEventListener?.('change', applyPrefs);
 
@@ -112,6 +114,7 @@ async function route() {
   currentKey = parts[1] && name === 'mantra' ? `mantra/${parts[1]}` : name;
   if (name !== 'a') visitedNonReader = true;
   document.body.dataset.view = name;
+  updateBars();
   document.body.classList.remove('has-audio');
   $$('#nav a').forEach((a) => {
     if (a.dataset.tab === name) a.setAttribute('aria-current', 'page');
@@ -350,7 +353,7 @@ async function renderReader(my, c, target) {
     bar.innerHTML = `
       <button class="btn sm" type="button" data-act="bm" data-i="${i}">${ic('bookmark', marked ? 'filled' : '')} ${marked ? t('unbookmark') : t('bookmark')}</button>
       <button class="btn sm" type="button" data-act="copy" data-i="${i}">${ic('copy')} ${t('copy')}</button>
-      ${navigator.share ? `<button class="btn sm" type="button" data-act="share" data-i="${i}">${ic('share')} ${t('share')}</button>` : ''}`;
+      ${native.canShare() ? `<button class="btn sm" type="button" data-act="share" data-i="${i}">${ic('share')} ${t('share')}</button>` : ''}`;
     el.after(bar);
   };
 
@@ -378,7 +381,7 @@ async function renderReader(my, c, target) {
           closeBar();
           return;
         case 'share':
-          navigator.share({ title: t('appName'), text: oviText(i) }).catch(() => {});
+          native.share(t('appName'), oviText(i));
           closeBar();
           return;
         case 'resume': {
@@ -507,7 +510,12 @@ function trackProgress(article) {
 }
 
 function keepScreenOn() {
-  if (!store.get().keepAwake || !('wakeLock' in navigator)) return;
+  if (!store.get().keepAwake) return;
+  if (native.keepAwake(true)) {
+    onCleanup(() => native.keepAwake(false));
+    return;
+  }
+  if (!('wakeLock' in navigator)) return;
   let lock = null;
   let alive = true;
   const request = async () => {
@@ -638,6 +646,12 @@ async function renderVideos(my) {
   view.onclick = commonClicks;
 }
 
+// The apps can't embed YouTube directly (YouTube needs a website as the source), so they
+// load the published embed.html page, which embeds the player.
+const embedURL = (id) => (native.isNative
+  ? `${native.LIVE_SITE}embed.html?v=${encodeURIComponent(id)}`
+  : `https://www.youtube-nocookie.com/embed/${encodeURIComponent(id)}?autoplay=1&rel=0&playsinline=1`);
+
 // the in-app player: tap any video card
 async function openVideo(id) {
   const found = await findVideo(id).catch(() => null);
@@ -655,8 +669,8 @@ async function openVideo(id) {
     <div class="pl-sheet">
       <div class="pl-frame">${navigator.onLine === false
         ? `<p class="pl-off">${t('needsNet')}</p>`
-        : `<iframe src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(id)}?autoplay=1&rel=0&playsinline=1"
-            title="${esc(v.title || 'YouTube')}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        : `<iframe src="${embedURL(id)}"
+            title="${esc(v.title || 'YouTube')}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
             referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`}</div>
       <div class="pl-info">
         ${videoLabel(v, c) ? `<div class="vlabel">${esc(videoLabel(v, c))}</div>` : ''}
@@ -780,10 +794,10 @@ async function renderMantra(my, id) {
         if (j.count >= j.target) {
           j.count = 0;
           j.rounds += 1;
-          navigator.vibrate?.([70, 50, 70]);
+          native.haptic(true);
           toast(t('malaDone'));
         } else {
-          navigator.vibrate?.(12);
+          native.haptic();
         }
         store.setJapa(m.id, j);
         paint();
@@ -1074,6 +1088,7 @@ function installUI() {
 }
 
 function installBanner() {
+  if (native.isNative) return '';
   if (!deferredPrompt || isStandalone() || store.get().installDismissed) return '';
   return `<div class="card install-card">${ic('download')}<span>${t('install')}</span>
     <button class="btn primary sm" type="button" data-act="install">${t('installBtn')}</button>
@@ -1119,10 +1134,16 @@ function renderSettings() {
       <h2 class="mt">${t('font')}</h2>${seg('font', [['pothi', t('fontPothi')], ['modern', t('fontModern')]], s.font)}
       <p class="preview" lang="mr">${t('preview')} <span class="on">॥१॥</span></p>
     </section>
-    ${'wakeLock' in navigator ? `<section class="card"><label class="switch"><span>${t('keepAwake')}</span>
+    ${native.canRemind() ? `<section class="card">
+      <label class="switch"><span>${t('reminder')}</span>
+        <input type="checkbox" data-k="reminderOn"${s.reminder?.on ? ' checked' : ''}><span class="sw" aria-hidden="true"></span></label>
+      <label class="rem-time"><span>${t('reminderTime')}</span>
+        <input type="time" data-k="reminderTime" value="${esc(s.reminder?.time || '06:00')}"></label>
+      <p class="muted small">${t('reminderHint')}${s.parayan ? '' : ` ${t('remindNone')}`}</p></section>` : ''}
+    ${native.isNative || 'wakeLock' in navigator ? `<section class="card"><label class="switch"><span>${t('keepAwake')}</span>
       <input type="checkbox" data-k="keepAwake"${s.keepAwake ? ' checked' : ''}><span class="sw" aria-hidden="true"></span></label></section>` : ''}
-    <section class="card"><h2>${t('install')}</h2><div id="install-slot">${installUI()}</div></section>
-    <section class="card"><h2>${t('offline')}</h2><p id="offline-slot" class="muted">…</p></section>
+    ${native.isNative ? '' : `<section class="card"><h2>${t('install')}</h2><div id="install-slot">${installUI()}</div></section>
+    <section class="card"><h2>${t('offline')}</h2><p id="offline-slot" class="muted">…</p></section>`}
     <section class="card"><h2>${t('about')}</h2><p>${t('aboutText')}</p></section>
     <section class="card"><h2>${t('data')}</h2><p class="muted">${t('dataHint')}</p>
       <button class="btn danger-ghost" type="button" data-act="reset">${t('resetAll')}</button></section>
@@ -1156,9 +1177,68 @@ function renderSettings() {
       document.documentElement.style.setProperty('--pothi-size', `${e.target.value}px`);
     }
   };
-  view.onchange = (e) => {
-    if (e.target.dataset.k === 'keepAwake') store.set({ keepAwake: e.target.checked });
+  view.onchange = async (e) => {
+    const k = e.target.dataset.k;
+    const rem = store.get().reminder || { on: false, time: '06:00' };
+    if (k === 'keepAwake') store.set({ keepAwake: e.target.checked });
+    else if (k === 'reminderTime' && e.target.value) store.set({ reminder: { ...rem, time: e.target.value } });
+    else if (k === 'reminderOn') {
+      if (e.target.checked && !(await native.askNotifyPermission())) {
+        e.target.checked = false;
+        toast(t('reminderOff'));
+        return;
+      }
+      store.set({ reminder: { ...rem, on: e.target.checked } });
+    }
   };
+}
+
+// ---- daily parayan reminders (apps only) ----
+// One notification per remaining day of the current parayan, at the chosen time.
+async function syncReminders() {
+  if (!native.canRemind()) return;
+  const s = store.get();
+  const items = [];
+  if (s.reminder?.on && s.parayan) {
+    const p = s.parayan;
+    const plan = parayanStatus(p).plan;
+    const [hh, mm] = (s.reminder.time || '06:00').split(':').map(Number);
+    const now = Date.now();
+    plan.forEach((list, d) => {
+      const [y, m, day] = addDays(p.start, d).split('-').map(Number);
+      const at = new Date(y, m - 1, day, hh, mm);
+      if (at.getTime() <= now) return;
+      const range = list.length > 1 ? `${num(list[0])}–${num(list.at(-1))}` : num(list[0]);
+      items.push({ id: 100 + d, title: t('appName'), body: t('remindBody', { d: d + 1, n: p.days, list: range }), at });
+    });
+  }
+  await native.setReminders(items);
+}
+
+let reminderTimer = null;
+const scheduleReminderSync = () => { clearTimeout(reminderTimer); reminderTimer = setTimeout(syncReminders, 600); };
+
+// status-bar icons: light over the dark home banner and dark themes, dark over light pages
+function updateBars() {
+  if (!native.isNative) return;
+  const s = store.get();
+  const darkTheme = s.theme === 'dark' || (s.theme === 'auto' && matchMedia('(prefers-color-scheme: dark)').matches);
+  native.setBarIcons(darkTheme || currentView === 'home' || !!$('.lang-pick'));
+}
+
+function setupNative() {
+  if (!native.isNative) return;
+  document.documentElement.classList.add('native', `native-${native.platform}`);
+  native.onBackButton(() => {
+    if ($('.player')) { closeVideo(); return; }
+    if ($('.lang-pick')) return;
+    if (currentView === 'home') { native.exitApp(); return; }
+    if (routeCount > 1) history.back();
+    else location.replace('#/');
+  });
+  native.onReminderTap((r) => { location.hash = r || '#/parayan'; });
+  store.subscribe(scheduleReminderSync);
+  scheduleReminderSync();
 }
 
 // clicks shared by several views (install banner, retry)
@@ -1197,6 +1277,7 @@ function langPicker() {
   </div>`;
   document.body.append(el);
   el.querySelector('.lp-btn').focus();
+  updateBars();
   el.addEventListener('click', (e) => {
     const b = e.target.closest('[data-lang]');
     if (!b) return;
@@ -1211,7 +1292,8 @@ function langPicker() {
 // Service worker (offline + updates)
 // =====================================================================
 function registerSW() {
-  if (!('serviceWorker' in navigator)) return;
+  // the apps carry every file inside them, so they don't need the offline service worker
+  if (native.isNative || !('serviceWorker' in navigator)) return;
   const hadController = !!navigator.serviceWorker.controller;
   addEventListener('load', async () => {
     try {
@@ -1236,6 +1318,7 @@ function registerSW() {
 
 // ---------- boot ----------
 applyPrefs();
+setupNative();
 addEventListener('hashchange', route);
 if (!store.get().lang) langPicker();
 route();

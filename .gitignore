@@ -3,3 +3,5 @@ __pycache__/
 .DS_Store
 Thumbs.db
 audio/_test*
+node_modules/
+www/

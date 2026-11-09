@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">नवनाथ भक्तिसार</string>
+    <string name="title_activity_main">नवनाथ भक्तिसार</string>
+    <string name="package_name">shop.shridarshan.navnath</string>
+    <string name="custom_url_scheme">shop.shridarshan.navnath</string>
+</resources>

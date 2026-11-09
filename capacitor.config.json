@@ -1,0 +1,26 @@
+{
+  "appId": "shop.shridarshan.navnath",
+  "appName": "नवनाथ भक्तिसार",
+  "webDir": "www",
+  "backgroundColor": "#fbf5ec",
+  "ios": {
+    "contentInset": "never",
+    "backgroundColor": "#fbf5ec"
+  },
+  "plugins": {
+    "SystemBars": {
+      "insetsHandling": "css",
+      "initialViewportFitValueHint": "cover"
+    },
+    "SplashScreen": {
+      "launchShowDuration": 800,
+      "launchAutoHide": true,
+      "backgroundColor": "#a93a12",
+      "showSpinner": false
+    },
+    "LocalNotifications": {
+      "smallIcon": "ic_stat_notify",
+      "iconColor": "#b4400f"
+    }
+  }
+}

@@ -1,5 +1,34 @@
 // Loads the pothi text and media links (all cached offline by the service worker).
+import { isNative, LIVE_SITE } from './native.js';
+
 let indexP = null;
+
+/**
+ * Lists that change over time (videos, mantras). Inside the Android/iOS app, read the
+ * website's copy first so new episodes appear without an app update; keep the last good
+ * copy for offline, and fall back to the copy bundled in the app.
+ */
+async function liveJSON(path) {
+  if (isNative) {
+    try {
+      const ctrl = new AbortController();
+      const timer = setTimeout(() => ctrl.abort(), 5000);
+      const r = await fetch(`${LIVE_SITE}${path}?t=${Date.now()}`, { signal: ctrl.signal, cache: 'no-store' });
+      clearTimeout(timer);
+      if (r.ok) {
+        const data = await r.json();
+        try { localStorage.setItem(`live:${path}`, JSON.stringify(data)); } catch { /* storage full */ }
+        return data;
+      }
+    } catch { /* offline: use the saved copy */ }
+    try {
+      const saved = localStorage.getItem(`live:${path}`);
+      if (saved) return JSON.parse(saved);
+    } catch { /* ignore */ }
+  }
+  const r = ok(await fetch(path, { cache: 'no-cache' }));
+  return r.json();
+}
 let mediaP = null;
 const chapters = new Map();
 
@@ -21,7 +50,7 @@ export function loadChapter(n) {
 let mantrasP = null;
 /** The mantra list from data/mantras.json. */
 export function loadMantras() {
-  mantrasP ??= fetch('data/mantras.json').then(ok).then((r) => r.json())
+  mantrasP ??= liveJSON('data/mantras.json')
     .then((d) => (d.mantras || []).filter((m) => m && m.id && Array.isArray(m.lines)))
     .catch((e) => { mantrasP = null; throw e; });
   return mantrasP;
@@ -37,9 +66,7 @@ export async function loadAll(onProgress = () => {}) {
 
 /** YouTube + audio links per adhyay, from data/media.json. Missing file = no media. */
 export function loadMedia() {
-  mediaP ??= fetch('data/media.json', { cache: 'no-cache' })
-    .then(ok).then((r) => r.json())
-    .catch(() => ({ adhyay: {} }));
+  mediaP ??= liveJSON('data/media.json').catch(() => ({ adhyay: {} }));
   return mediaP;
 }
 

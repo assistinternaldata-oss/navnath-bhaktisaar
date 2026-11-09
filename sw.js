@@ -1,18 +1,25 @@
 // Service worker: keeps the whole pothi available offline.
 // Bump VERSION when you add or rename files in SHELL; edits to existing files reach readers on their own.
-const VERSION = 'nbs-v3';
+const VERSION = 'nbs-v4';
 const FONTS = 'nbs-fonts';
 
 const CHAPTERS = Array.from({ length: 40 }, (_, k) => `data/adhyay/${String(k + 1).padStart(2, '0')}.json`);
+const FONT_FILES = [
+  'tiro-devanagari-marathi-devanagari-400-normal', 'tiro-devanagari-marathi-latin-400-normal',
+  ...['400', '500', '600', '700'].flatMap((w) => [`mukta-devanagari-${w}-normal`, `mukta-latin-${w}-normal`]),
+].map((f) => `fonts/${f}.woff2`);
 const SHELL = [
   './',
   'index.html',
+  'fonts/fonts.css',
+  ...FONT_FILES,
   'css/app.css',
   'js/app.js',
   'js/i18n.js',
   'js/store.js',
   'js/data.js',
   'js/parayan.js',
+  'js/native.js',
   'manifest.webmanifest',
   'icons/icon-192.png',
   'icons/icon-512.png',
@@ -56,11 +63,13 @@ self.addEventListener('fetch', (e) => {
   if (req.headers.has('range') || /\.(mp3|m4a|aac|ogg|opus|wav)$/i.test(url.pathname)) return;
 
   if (req.mode === 'navigate') {
-    e.respondWith(networkFirst(req, 'index.html'));
+    // only the app page itself falls back to the saved index.html (not embed.html etc.)
+    const isShell = url.pathname.endsWith('/') || url.pathname.endsWith('/index.html');
+    e.respondWith(networkFirst(req, isShell ? 'index.html' : undefined));
     return;
   }
   // the pothi text and icons rarely change: serve the saved copy instantly, refresh it in the background
-  if (url.pathname.includes('/data/adhyay/') || url.pathname.includes('/icons/')) {
+  if (url.pathname.includes('/data/adhyay/') || url.pathname.includes('/icons/') || url.pathname.includes('/fonts/')) {
     e.respondWith(staleWhileRevalidate(req, VERSION));
     return;
   }

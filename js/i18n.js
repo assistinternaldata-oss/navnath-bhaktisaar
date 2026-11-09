@@ -19,6 +19,13 @@ const S = {
   navVideos:    { mr: 'व्हिडिओ', hi: 'वीडियो', en: 'Videos' },
   navMantra:    { mr: 'मंत्र', hi: 'मंत्र', en: 'Mantras' },
 
+  reminder:     { mr: 'पारायणाची रोज आठवण', hi: 'पारायण की रोज़ याद', en: 'Daily parayan reminder' },
+  reminderTime: { mr: 'वेळ', hi: 'समय', en: 'Time' },
+  reminderHint: { mr: 'पारायण सुरू असताना रोज या वेळी आजचे अध्याय सांगणारी सूचना येईल.', hi: 'पारायण चलते समय रोज़ इस समय आज के अध्याय बताने वाली सूचना आएगी।', en: "While a parayan is running, you'll get a notification at this time with the day's adhyays." },
+  reminderOff:  { mr: 'सूचनांना परवानगी मिळाली नाही. फोनच्या सेटिंग्जमध्ये या ॲपसाठी सूचना सुरू करा.', hi: 'सूचनाओं की अनुमति नहीं मिली। फ़ोन की सेटिंग्स में इस ऐप के लिए सूचनाएँ चालू करें।', en: 'Notifications are not allowed. Turn them on for this app in your phone settings.' },
+  remindBody:   { mr: 'दिवस {d}/{n} · आजचे अध्याय: {list}', hi: 'दिन {d}/{n} · आज के अध्याय: {list}', en: 'Day {d} of {n} · today: Adhyay {list}' },
+  remindNone:   { mr: 'पारायण सुरू केल्यावर आठवण येईल.', hi: 'पारायण शुरू करने पर याद दिलाई जाएगी।', en: 'Reminders start when you begin a parayan.' },
+
   mantrasIntro: { mr: 'नाथ संप्रदायातील मंत्र — जपासाठी माळ-गणकासह.', hi: 'नाथ संप्रदाय के मंत्र — जप के लिए माला-गणक के साथ।', en: 'Mantras of the Nath tradition, with a mala counter for japa.' },
   japa:         { mr: 'जप', hi: 'जप', en: 'Japa' },
   tapToCount:   { mr: 'प्रत्येक जपानंतर वर्तुळावर टॅप करा', hi: 'हर जप के बाद गोले पर टैप करें', en: 'Tap the circle after each chant' },
