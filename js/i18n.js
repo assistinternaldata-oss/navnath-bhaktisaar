@@ -161,6 +161,7 @@ const S = {
   resetAll:     { mr: 'सर्व पुसून टाका', hi: 'सब मिटाएँ', en: 'Erase everything' },
   resetConfirm: { mr: 'वाचन प्रगती, खुणा आणि पारायण सर्व पुसायचे?', hi: 'पढ़ने की प्रगति, बुकमार्क और पारायण सब मिटाएँ?', en: 'Erase reading progress, bookmarks and parayans?' },
   about:        { mr: 'पोथीविषयी', hi: 'पोथी के बारे में', en: 'About the pothi' },
+  privacy:      { mr: 'गोपनीयता धोरण', hi: 'गोपनीयता नीति', en: 'Privacy policy' },
   aboutText:    { mr: 'श्री नवनाथ भक्तिसार हा नवनाथांच्या कथांचा ४० अध्यायांचा ओवीबद्ध ग्रंथ आहे. धुंडीसुत मालू नरहरी यांनी शके १७४१ (इ.स. १८१९) मध्ये तो पूर्ण केला.', hi: 'श्री नवनाथ भक्तिसार नवनाथों की कथाओं का ४० अध्यायों का ओवीबद्ध ग्रंथ है। धुंडीसुत मालू नरहरि ने इसे शक १७४१ (ई. १८१९) में पूर्ण किया।', en: 'Shri Navnath Bhaktisaar tells the stories of the nine Naths in 40 adhyays of Marathi ovi verse. Dhundisut Malu Narhari completed it in Shaka 1741 (1819 CE).' },
   update:       { mr: 'नवीन आवृत्ती आली आहे', hi: 'नया संस्करण आया है', en: 'A new version is ready' },
   reload:       { mr: 'उघडा', hi: 'खोलें', en: 'Reload' },

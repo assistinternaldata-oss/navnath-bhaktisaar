@@ -1144,7 +1144,8 @@ function renderSettings() {
       <input type="checkbox" data-k="keepAwake"${s.keepAwake ? ' checked' : ''}><span class="sw" aria-hidden="true"></span></label></section>` : ''}
     ${native.isNative ? '' : `<section class="card"><h2>${t('install')}</h2><div id="install-slot">${installUI()}</div></section>
     <section class="card"><h2>${t('offline')}</h2><p id="offline-slot" class="muted">…</p></section>`}
-    <section class="card"><h2>${t('about')}</h2><p>${t('aboutText')}</p></section>
+    <section class="card"><h2>${t('about')}</h2><p>${t('aboutText')}</p>
+      <p class="small"><a href="${native.isNative ? native.LIVE_SITE : ''}privacy.html" target="_blank" rel="noopener">${t('privacy')}</a></p></section>
     <section class="card"><h2>${t('data')}</h2><p class="muted">${t('dataHint')}</p>
       <button class="btn danger-ghost" type="button" data-act="reset">${t('resetAll')}</button></section>
     <p class="ver muted small">v${APP_VERSION}</p>
