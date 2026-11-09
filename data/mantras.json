@@ -1,0 +1,153 @@
+{
+ "_help": "Mantras shown in the मंत्र tab, in this order. lines = the mantra exactly as it should be chanted, one line per entry. Optional: video (YouTube id), adhyay (related adhyay number), japa (default count: 11, 21 or 108), note (short background), lang (language of the text: mr, hi or sa). 'check' marks wording drafted by Claude that you haven't confirmed yet — delete the field once you have.",
+ "mantras": [
+  {
+   "id": "gorakh-gayatri",
+   "featured": true,
+   "title": { "mr": "गोरक्ष गायत्री — शाबरी मंत्र", "hi": "गोरक्ष गायत्री — शाबर मंत्र", "en": "Goraksh Gayatri — Shabar mantra" },
+   "deity": { "mr": "गुरु गोरक्षनाथ", "hi": "गुरु गोरक्षनाथ", "en": "Guru Gorakshnath" },
+   "lang": "hi",
+   "lines": [
+    "ॐ गुरुजी, सत नमो आदेश। गुरुजी को आदेश।",
+    "ॐकारे शिवरूपी, मध्याह्ने हंसरूपी, संध्यायां साधुरूपी।",
+    "हंस परमहंस दो अक्षर। गुरु तो गोरक्ष, काया तो गायत्री।",
+    "ॐ ब्रह्म, सोऽहं शक्ति, शून्य माता, अवगत पिता,",
+    "विहंगम जात, अभय पंथ, सूक्ष्म वेद, असंख्य शाखा,",
+    "अनंत प्रवर, निरंजन गोत्र, त्रिकुटी क्षेत्र, जुगति जोग,",
+    "जलस्वरूप रुद्रवर्ण। सर्वदेव ध्यायते।",
+    "आए श्री शंभुजती गुरु गोरखनाथ।",
+    "ॐ सोऽहं तत्पुरुषाय विद्महे, शिवगोरक्षाय धीमहि, तन्नो गोरक्षः प्रचोदयात्॥",
+    "ॐ इतना गोरख गायत्री जाप संपूर्ण भया।",
+    "गंगा गोदावरी, त्र्यंबक क्षेत्र, कोलांचल अनुपान शिला पर सिद्धासन बैठ,",
+    "नवनाथ, चौरासी सिद्ध, अनंत कोटि सिद्ध मध्य",
+    "श्री शंभुजती गुरु गोरखनाथजी ने जप कर सुनाया।",
+    "सिद्धो गुरुवरो, आदेश आदेश॥"
+   ],
+   "video": "YoW_d1W-KKM",
+   "adhyay": 9,
+   "japa": 11,
+   "note": {
+    "mr": "नाथ संप्रदायातील गुरु गोरक्षनाथांचा गायत्री शाबरी मंत्र. Shri Darshan च्या ‘आदेश’ व्हिडिओत याचे पठण आहे.",
+    "hi": "नाथ संप्रदाय का गुरु गोरक्षनाथ का गायत्री शाबर मंत्र। Shri Darshan के ‘आदेश’ वीडियो में इसका पाठ है।",
+    "en": "Guru Gorakshnath's Gayatri, a Shabar mantra of the Nath tradition, recited in Shri Darshan's ‘Aadesh’ video."
+   }
+  },
+  {
+   "id": "navnath-namjap",
+   "title": { "mr": "नवनाथ नामजप", "hi": "नवनाथ नामजप", "en": "Navnath name chant" },
+   "deity": { "mr": "नवनाथ", "hi": "नवनाथ", "en": "The nine Naths" },
+   "lang": "sa",
+   "lines": [
+    "ॐ चैतन्य मच्छिंद्रनाथाय नमः",
+    "ॐ चैतन्य गोरक्षनाथाय नमः",
+    "ॐ चैतन्य जालिंदरनाथाय नमः",
+    "ॐ चैतन्य कानिफनाथाय नमः",
+    "ॐ चैतन्य चरपटीनाथाय नमः",
+    "ॐ चैतन्य नागनाथाय नमः",
+    "ॐ चैतन्य भर्तरीनाथाय नमः",
+    "ॐ चैतन्य रेवणनाथाय नमः",
+    "ॐ चैतन्य गहिनीनाथाय नमः"
+   ],
+   "adhyay": 1,
+   "japa": 108,
+   "note": {
+    "mr": "नवनारायणांचे नऊ नाथ अवतार, पोथीच्या पहिल्या अध्यायातील क्रमाने (ओवी ३८–४३).",
+    "hi": "नवनारायणों के नौ नाथ अवतार, पोथी के पहले अध्याय के क्रम से (ओवी ३८–४३)।",
+    "en": "The nine Nath incarnations of the Navnarayanas, in the order given in adhyay 1 (ovis 38–43)."
+   }
+  },
+  {
+   "id": "navnath-shloka",
+   "title": { "mr": "नवनाथांचा श्लोक", "hi": "नवनाथ श्लोक", "en": "Navnath shloka" },
+   "deity": { "mr": "नवनाथ", "hi": "नवनाथ", "en": "The nine Naths" },
+   "lang": "sa",
+   "lines": [
+    "गोरक्षजालंदरचर्पटाश्च अडबंगकानीफमछिंदराद्याः ।",
+    "चौरंगिरेवाणकभर्तिसंज्ञा भूम्यां बभूवुर्नवनाथसिद्धाः ॥"
+   ],
+   "adhyay": 40,
+   "japa": 11,
+   "note": {
+    "mr": "पोथीच्या शेवटी (अध्याय ४०) दिलेला नवनाथांचा श्लोक.",
+    "hi": "पोथी के अंत में (अध्याय ४०) दिया गया नवनाथ श्लोक।",
+    "en": "The Navnath shloka given at the end of the pothi (adhyay 40)."
+   }
+  },
+  {
+   "id": "shiv-goraksh-yogi",
+   "title": { "mr": "ॐ शिव गोरक्ष योगी", "hi": "ॐ शिव गोरक्ष योगी", "en": "Om Shiv Goraksh Yogi" },
+   "deity": { "mr": "गुरु गोरक्षनाथ", "hi": "गुरु गोरक्षनाथ", "en": "Guru Gorakshnath" },
+   "lang": "hi",
+   "lines": [
+    "ॐ शिव गोरक्ष योगी",
+    "गंगे हर, नर्मदे हर",
+    "जटाशंकरी हर",
+    "ॐ नमो पार्वती पतये हर",
+    "बोलिए श्री शंभुजती गुरु गोरक्षनाथ महाराज की जय!"
+   ],
+   "video": "5aJtBEHg2Kk",
+   "japa": 108,
+   "note": {
+    "mr": "Shri Darshan च्या ‘ॐ शिव गोरक्ष योगी’ प्रार्थनेतील ओळी.",
+    "hi": "Shri Darshan की ‘ॐ शिव गोरक्ष योगी’ प्रार्थना की पंक्तियाँ।",
+    "en": "Lines from Shri Darshan's ‘Om Shiv Goraksh Yogi’ prayer."
+   }
+  },
+  {
+   "id": "mrit-sanjivani",
+   "title": { "mr": "मृतसंजीवनी मंत्र", "hi": "मृतसंजीवनी मंत्र", "en": "Mrit-Sanjivani mantra" },
+   "deity": { "mr": "महादेव", "hi": "महादेव", "en": "Mahadev" },
+   "lang": "sa",
+   "lines": [
+    "॥ ॐ हौं जूं सः ॐ भूर्भुवः स्वः",
+    "ॐ तत्सवितुर्वरेण्यं त्र्यम्बकं यजामहे",
+    "भर्गो देवस्य धीमहि सुगन्धिं पुष्टिवर्धनम्",
+    "धियो यो नः प्रचोदयात् उर्वारुकमिव बन्धनान्",
+    "मृत्योर्मुक्षीय माऽमृतात्",
+    "ॐ स्वः भुवः भूः सः जूं हौं ॐ ॥"
+   ],
+   "video": "rDv4WbSSBRA",
+   "adhyay": 10,
+   "japa": 108,
+   "note": {
+    "mr": "अध्याय १० मध्ये गहिनीनाथांच्या जन्मकथेत संजीवनी मंत्राचा प्रसंग येतो.",
+    "hi": "अध्याय १० में गहिनीनाथ की जन्मकथा में संजीवनी मंत्र का प्रसंग आता है।",
+    "en": "The Sanjivani mantra features in Gahininath's birth story in adhyay 10."
+   }
+  },
+  {
+   "id": "datta-namjap",
+   "title": { "mr": "दत्त नामजप", "hi": "दत्त नामजप", "en": "Datta name chant" },
+   "deity": { "mr": "श्री दत्तात्रेय", "hi": "श्री दत्तात्रेय", "en": "Shri Dattatreya" },
+   "lang": "mr",
+   "lines": [
+    "दिगंबरा दिगंबरा श्रीपाद वल्लभ दिगंबरा"
+   ],
+   "adhyay": 2,
+   "japa": 108,
+   "note": {
+    "mr": "अध्याय २ मध्ये मच्छिंद्रनाथांना श्री दत्तात्रेयांचे दर्शन होते.",
+    "hi": "अध्याय २ में मच्छिंद्रनाथ को श्री दत्तात्रेय के दर्शन होते हैं।",
+    "en": "Machindranath receives Shri Dattatreya's darshan in adhyay 2."
+   }
+  },
+  {
+   "id": "datta-gayatri",
+   "title": { "mr": "दत्त गायत्री", "hi": "दत्त गायत्री", "en": "Datta Gayatri" },
+   "deity": { "mr": "श्री दत्तात्रेय", "hi": "श्री दत्तात्रेय", "en": "Shri Dattatreya" },
+   "lang": "sa",
+   "lines": [
+    "ॐ दिगंबराय विद्महे",
+    "अवधूताय धीमहि",
+    "तन्नो दत्तः प्रचोदयात् ॥"
+   ],
+   "adhyay": 2,
+   "japa": 108,
+   "note": {
+    "mr": "श्री दत्तात्रेयांचा गायत्री मंत्र.",
+    "hi": "श्री दत्तात्रेय का गायत्री मंत्र।",
+    "en": "The Gayatri mantra of Shri Dattatreya."
+   }
+  }
+ ]
+}

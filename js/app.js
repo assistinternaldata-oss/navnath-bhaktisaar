@@ -1,6 +1,6 @@
 import * as store from './store.js';
 import { t, num, setLang, getLang, LANGS, fmtDate } from './i18n.js';
-import { loadIndex, loadChapter, loadAll, loadMedia, mediaFor, allVideos, findVideo } from './data.js';
+import { loadIndex, loadChapter, loadAll, loadMedia, mediaFor, allVideos, findVideo, loadMantras } from './data.js';
 import { PLAN_DAYS, perDayRange, status as parayanStatus, todayISO, addDays } from './parayan.js';
 
 const APP_VERSION = '1.0.0';
@@ -30,6 +30,7 @@ const ICONS = {
   check: '<path d="M20 6.5 9.5 17 4 11.5"/>',
   x: '<path d="M18 6 6 18M6 6l12 12"/>',
   download: '<path d="M12 3.5v11m0 0-4.2-4.2m4.2 4.2 4.2-4.2M5 20.5h14"/>',
+  mala: '<circle cx="12" cy="3.8" r="1.5"/><circle cx="17.2" cy="5.6" r="1.5"/><circle cx="19.6" cy="10.4" r="1.5"/><circle cx="4.4" cy="10.4" r="1.5"/><circle cx="6.8" cy="5.6" r="1.5"/><circle cx="17.6" cy="15.4" r="1.5"/><circle cx="6.4" cy="15.4" r="1.5"/><path d="M12 15.5v6m-2.2 0h4.4"/><circle cx="12" cy="15.5" r="1.8"/>',
 };
 const ic = (name, cls = '') => `<svg class="ic ${cls}" viewBox="0 0 24 24" aria-hidden="true">${ICONS[name]}</svg>`;
 
@@ -69,9 +70,9 @@ function toast(msg, action) {
 const TABS = [
   ['home', '#/', 'navPothi', 'book'],
   ['parayan', '#/parayan', 'navParayan', 'diya'],
+  ['mantra', '#/mantra', 'navMantra', 'mala'],
   ['videos', '#/videos', 'navVideos', 'youtube'],
   ['search', '#/search', 'navSearch', 'search'],
-  ['marks', '#/marks', 'navMarks', 'bookmark'],
 ];
 let currentView = 'home';
 
@@ -94,8 +95,10 @@ const scrollMemo = {};
 let visitedNonReader = false;
 let routeCount = 0;
 
+let currentKey = 'home'; // view + sub-page, for remembering scroll positions
+
 async function route() {
-  if (currentView !== 'a') scrollMemo[currentView] = scrollY;
+  if (currentView !== 'a') scrollMemo[currentKey] = scrollY;
   cleanups.forEach((fn) => { try { fn(); } catch { /* ignore */ } });
   cleanups = [];
   closeVideo();
@@ -104,8 +107,9 @@ async function route() {
   routeCount++;
 
   const { parts, query } = parseHash();
-  const name = ['a', 'parayan', 'videos', 'search', 'marks', 'settings'].includes(parts[0]) ? parts[0] : 'home';
+  const name = ['a', 'parayan', 'mantra', 'videos', 'search', 'marks', 'settings'].includes(parts[0]) ? parts[0] : 'home';
   currentView = name;
+  currentKey = parts[1] && name === 'mantra' ? `mantra/${parts[1]}` : name;
   if (name !== 'a') visitedNonReader = true;
   document.body.dataset.view = name;
   document.body.classList.remove('has-audio');
@@ -117,13 +121,14 @@ async function route() {
   switch (name) {
     case 'a': return renderReader(my, Number(parts[1]), parts[2] ? Number(parts[2]) : null);
     case 'parayan': await renderParayan(my); break;
+    case 'mantra': await (parts[1] ? renderMantra(my, decodeURIComponent(parts[1])) : renderMantras(my)); break;
     case 'videos': await renderVideos(my); break;
     case 'search': renderSearch(my, query.get('q') || ''); break;
     case 'marks': await renderMarks(my); break;
     case 'settings': renderSettings(); break;
     default: await renderHome(my);
   }
-  if (my === token) scrollTo(0, name === 'search' ? 0 : scrollMemo[name] || 0);
+  if (my === token) scrollTo(0, name === 'search' ? 0 : scrollMemo[currentKey] || 0);
 }
 
 // tab pages get a settings gear on the right; settings itself gets a back arrow
@@ -165,6 +170,8 @@ async function renderHome(my) {
     </header>
     <div class="wrap home">
       ${continueCard(s, index)}
+      <a class="card quick" href="#/marks">${ic('bookmark', 'gold')}<span>${t('navMarks')}</span>
+        ${s.bookmarks.length ? `<span class="muted">${num(s.bookmarks.length)}</span>` : ''}${ic('chev', 'end muted')}</a>
       ${homeParayanCard(s)}
       <div id="install-banner-slot">${installBanner()}</div>
       ${homeSeries(vids)}
@@ -282,9 +289,9 @@ async function renderReader(my, c, target) {
   view.onclick = readerChrome;
   scrollTo(0, 0);
 
-  let ch, index, media;
+  let ch, index, media, mantras;
   try {
-    [ch, index, media] = await Promise.all([loadChapter(c), loadIndex(), mediaFor(c)]);
+    [ch, index, media, mantras] = await Promise.all([loadChapter(c), loadIndex(), mediaFor(c), loadMantras().catch(() => [])]);
   } catch {
     if (my === token) $('.loading').outerHTML = errorBox();
     return;
@@ -310,6 +317,8 @@ async function renderReader(my, c, target) {
           ${videoRow(media.videos.map((v) => videoCard(v, c, false)), media.videos.length === 1)}</div>`
         : media.channel ? `<p class="soon small muted">${t('comingSoon')}
           <a href="${esc(media.channel.subscribe || media.channel.url)}" target="_blank" rel="noopener">${t('subscribe')}</a></p>` : ''}
+        ${mantras.filter((m) => m.adhyay === c).map((m) =>
+          `<a class="chip mchip" href="#/mantra/${encodeURIComponent(m.id)}">${ic('mala', 'sm')} ${esc(L(m.title))}</a>`).join('')}
         ${resume ? `<button class="chip resume" type="button" data-act="resume">${t('resumeHere', { n: resume.n ?? resume.i })} ${ic('down', 'sm')}</button>` : ''}
       </header>
       ${ch.blocks.map((b) => blockHTML(b, c)).join('')}
@@ -679,6 +688,132 @@ document.addEventListener('click', (e) => {
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeVideo(); });
 
 // =====================================================================
+// Mantras + japa counter
+// =====================================================================
+/** Pick the current UI language from a {mr, hi, en} object (or pass a plain string through). */
+const L = (o) => (o && typeof o === 'object' ? o[getLang()] || o.mr || o.en || '' : o || '');
+
+function mantraItem(m, s) {
+  const total = s.japa?.[m.id]?.total || 0;
+  return `<li><a class="card mitem${m.featured ? ' featured' : ''}" href="#/mantra/${encodeURIComponent(m.id)}">
+    <span class="mi-icon">${ic('mala')}</span>
+    <span class="mi-body">
+      <span class="mi-deity">${esc(L(m.deity))}</span>
+      <span class="mi-title">${esc(L(m.title))}</span>
+      <span class="mi-line" lang="${m.lang || 'sa'}">${esc(m.lines[0])}</span>
+      ${m.video || total ? `<span class="mi-meta">${m.video ? `${ic('youtube', 'sm yt')} ${t('navVideos')}` : ''}${total ? `<span>${t('chantedN', { n: total })}</span>` : ''}</span>` : ''}
+    </span>${ic('chev', 'muted')}</a></li>`;
+}
+
+async function renderMantras(my) {
+  let list;
+  try {
+    list = await loadMantras();
+  } catch {
+    if (my === token) { view.innerHTML = `${pageHead(t('navMantra'))}<div class="wrap">${errorBox()}</div>`; view.onclick = retryHandler; }
+    return;
+  }
+  if (my !== token) return;
+  const s = store.get();
+  view.innerHTML = `${pageHead(t('navMantra'))}<div class="wrap">
+    <p class="intro muted">${t('mantrasIntro')}</p>
+    <ul class="mlist">${list.map((m) => mantraItem(m, s)).join('')}</ul></div>`;
+  view.onclick = commonClicks;
+}
+
+const RING = 2 * Math.PI * 88;
+
+async function renderMantra(my, id) {
+  let list, vid = null;
+  try {
+    list = await loadMantras();
+    const m0 = list.find((x) => x.id === id);
+    if (m0?.video) vid = (await findVideo(m0.video).catch(() => null))?.v || { id: m0.video, title: '' };
+  } catch {
+    if (my === token) { view.innerHTML = `${pageHead(t('navMantra'), { back: true })}<div class="wrap">${errorBox()}</div>`; view.onclick = retryHandler; }
+    return;
+  }
+  if (my !== token) return;
+  const m = list.find((x) => x.id === id);
+  if (!m) { location.replace('#/mantra'); return; }
+  let j = store.japaFor(m.id, m.japa || 108);
+
+  view.innerHTML = `${pageHead(L(m.title), { back: true })}<div class="wrap mantra-page">
+    <div class="kicker m-deity">${esc(L(m.deity))}</div>
+    <section class="card m-text" lang="${m.lang || 'sa'}">${m.lines.map((l) => `<p>${esc(l)}</p>`).join('')}</section>
+    <section class="card japa" aria-label="${t('japa')}">
+      <button class="japa-btn" type="button" data-act="japa" aria-label="${t('countBtn')}">
+        <svg viewBox="0 0 200 200" aria-hidden="true"><circle class="jr-bg" cx="100" cy="100" r="88"/>
+          <circle class="jr-fg" cx="100" cy="100" r="88" stroke-dasharray="${RING}" stroke-dashoffset="${RING}"/></svg>
+        <span class="jb-in"><span class="jb-num" aria-live="polite"></span><span class="jb-of"></span></span>
+      </button>
+      <p class="muted small center">${t('tapToCount')}</p>
+      <div class="jstats"><span id="j-rounds"></span><span id="j-total"></span></div>
+      <div class="jrow"><span class="small muted">${t('target')}</span>
+        <div class="seg jseg" role="radiogroup">${[11, 21, 108].map((n) =>
+          `<button type="button" role="radio" data-act="japa-target" data-v="${n}">${num(n)}</button>`).join('')}</div></div>
+      <div class="jrow"><button class="btn sm" type="button" data-act="japa-minus">${t('minusOne')}</button>
+        <button class="btn sm ghost" type="button" data-act="japa-reset">${t('resetCount')}</button></div>
+    </section>
+    ${vid ? `<div class="m-video"><div class="chv-h">${ic('youtube', 'yt')} ${t('watchMantra')}</div>${videoRow([videoCard(vid, null, false)], true)}</div>` : ''}
+    ${L(m.note) ? `<p class="m-note muted">${esc(L(m.note))}</p>` : ''}
+    ${m.adhyay ? `<a class="card quick" href="#/a/${m.adhyay}">${ic('book')}<span>${t('relatedAdhyay', { n: m.adhyay })}</span>${ic('chev', 'end muted')}</a>` : ''}
+  </div>`;
+
+  const btn = $('.japa-btn');
+  const paint = () => {
+    $('.jr-fg').style.strokeDashoffset = RING * (1 - j.count / j.target);
+    $('.jb-num').textContent = num(j.count);
+    $('.jb-of').textContent = `/ ${num(j.target)}`;
+    $('#j-rounds').textContent = t('malaN', { n: j.rounds });
+    $('#j-total').textContent = t('totalN', { n: j.total });
+    $$('.jseg button').forEach((b) => b.setAttribute('aria-checked', String(Number(b.dataset.v) === j.target)));
+  };
+  paint();
+
+  view.onclick = (e) => {
+    const el = e.target.closest('[data-act]');
+    if (!el) return;
+    switch (el.dataset.act) {
+      case 'japa':
+        j = { ...j, count: j.count + 1, total: j.total + 1 };
+        if (j.count >= j.target) {
+          j.count = 0;
+          j.rounds += 1;
+          navigator.vibrate?.([70, 50, 70]);
+          toast(t('malaDone'));
+        } else {
+          navigator.vibrate?.(12);
+        }
+        store.setJapa(m.id, j);
+        paint();
+        btn.classList.remove('pulse');
+        void btn.offsetWidth;
+        btn.classList.add('pulse');
+        break;
+      case 'japa-minus':
+        if (j.count > 0) { j = { ...j, count: j.count - 1, total: Math.max(0, j.total - 1) }; store.setJapa(m.id, j); paint(); }
+        break;
+      case 'japa-reset':
+        if (confirm(t('resetJapaQ'))) { j = { count: 0, rounds: 0, total: 0, target: j.target }; store.setJapa(m.id, j); paint(); }
+        break;
+      case 'japa-target':
+        j = { ...j, target: Number(el.dataset.v), count: Math.min(j.count, Number(el.dataset.v) - 1) };
+        store.setJapa(m.id, j);
+        paint();
+        break;
+      case 'back-page':
+        if (routeCount > 1) history.back();
+        else location.replace('#/mantra');
+        break;
+      default:
+        commonClicks(e);
+    }
+  };
+  keepScreenOn();
+}
+
+// =====================================================================
 // Parayan
 // =====================================================================
 let justCompleted = null;
@@ -879,7 +1014,8 @@ async function runSearch(my, raw) {
 // =====================================================================
 async function renderMarks(my) {
   const s = store.get();
-  view.innerHTML = `${pageHead(t('navMarks'))}<div class="wrap" id="marks"><p class="muted">${t('loading')}</p></div>`;
+  view.innerHTML = `${pageHead(t('navMarks'), { back: true })}<div class="wrap" id="marks"><p class="muted">${t('loading')}</p></div>`;
+  view.onclick = marksClicks;
   let index, chapters;
   try {
     index = await loadIndex();
@@ -907,13 +1043,20 @@ async function renderMarks(my) {
   }).join('');
 
   $('#marks').innerHTML = `${last}${items ? `<ul class="marks">${items}</ul>` : `<div class="empty">${ic('bookmark')}<p>${t('marksEmpty')}</p></div>`}`;
-  view.onclick = (e) => {
-    const el = e.target.closest('[data-act="unmark"]');
-    if (!el) return;
-    store.toggleBookmark(Number(el.dataset.c), Number(el.dataset.i));
-    toast(t('unbookmarked'));
-    renderMarks(token);
-  };
+  view.onclick = marksClicks;
+}
+
+function marksClicks(e) {
+  if (e.target.closest('[data-act="back-page"]')) {
+    if (routeCount > 1) history.back();
+    else location.replace('#/');
+    return;
+  }
+  const el = e.target.closest('[data-act="unmark"]');
+  if (!el) return;
+  store.toggleBookmark(Number(el.dataset.c), Number(el.dataset.i));
+  toast(t('unbookmarked'));
+  renderMarks(token);
 }
 
 // =====================================================================

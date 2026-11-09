@@ -4,6 +4,7 @@ An installable web app (PWA) for reading the complete Navnath Bhaktisaar pothi o
 
 - All 40 adhyays (7,635 ovis) in Marathi, taken from `../NavnathBhaktisaar.docx`
 - Parayan tracker: 1, 3, 7, 11, 21 or 40 days, with today's adhyays, catch-up for missed days, and a history of completed parayans
+- A मंत्र (Mantras) tab: the Goraksh Gayatri Shabar mantra and other Nath mantras, each with a 11/21/108 jap counter that counts malas and vibrates as each one completes
 - Search across the whole pothi, bookmarks on any ovi, and "continue where you left off"
 - Menus in मराठी, हिंदी or English (the pothi text stays Marathi)
 - Light, pothi (sepia) and dark themes; adjustable text size; keeps the screen on while reading
@@ -41,6 +42,31 @@ Everything lives in `data/media.json`. When you publish a new episode, add a lin
 - **audio**: put an MP3 in an `audio/` folder next to `index.html` and write its path (`audio/adhyay-16.mp3`), or paste a full https link. A player bar appears at the bottom of that adhyay. Audio isn't stored offline, because the files are large.
 
 Adhyays with no videos show "Hindi episode coming soon — Subscribe". The app re-reads this file every time it opens.
+
+## Add or edit mantras
+
+The मंत्र tab reads `data/mantras.json`, showing mantras in the order listed. Each one looks like this:
+
+```json
+{
+ "id": "gorakh-gayatri",
+ "title": { "mr": "गोरक्ष गायत्री — शाबरी मंत्र", "hi": "…", "en": "…" },
+ "deity": { "mr": "गुरु गोरक्षनाथ", "hi": "…", "en": "…" },
+ "lang": "hi",
+ "lines": ["ॐ गुरुजी, सत नमो आदेश। गुरुजी को आदेश।", "…"],
+ "video": "YoW_d1W-KKM",
+ "adhyay": 9,
+ "japa": 11,
+ "note": { "mr": "…", "hi": "…", "en": "…" }
+}
+```
+
+- **id**: a short name with no spaces; it becomes the page address (`#/mantra/gorakh-gayatri`).
+- **lines**: the mantra exactly as it should be chanted, one line per entry.
+- Optional: `video` (YouTube id, shown on the page), `adhyay` (adds a link both ways between the mantra and that adhyay), `japa` (starting mala size: 11, 21 or 108), `note` (a line of background), `"featured": true` (highlights it at the top).
+- `check` marks wording Claude drafted that you haven't confirmed. Delete it once you have.
+
+Each reader's jap counts are saved on their own phone.
 
 ## Correct the pothi text
 

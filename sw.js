@@ -1,6 +1,6 @@
 // Service worker: keeps the whole pothi available offline.
 // Bump VERSION when you add or rename files in SHELL; edits to existing files reach readers on their own.
-const VERSION = 'nbs-v2';
+const VERSION = 'nbs-v3';
 const FONTS = 'nbs-fonts';
 
 const CHAPTERS = Array.from({ length: 40 }, (_, k) => `data/adhyay/${String(k + 1).padStart(2, '0')}.json`);
@@ -20,6 +20,7 @@ const SHELL = [
   'icons/apple-touch-icon.png',
   'data/index.json',
   'data/media.json',
+  'data/mantras.json',
   ...CHAPTERS,
 ];
 

@@ -12,6 +12,7 @@ const DEFAULTS = {
   bookmarks: [],         // [{ c, i, at }]
   parayan: null,         // { days, start: 'YYYY-MM-DD', done: { [adhyay]: ts }, startedAt }
   history: [],           // [{ days, start, end }]
+  japa: {},              // { [mantraId]: { count, rounds, total, target } }
 };
 
 let state = load();
@@ -93,6 +94,14 @@ export function toggleBookmark(c, i, n) {
     : [{ c, i, n, at: Date.now() }, ...state.bookmarks];
   set({ bookmarks });
   return !has;
+}
+
+// ---- japa (mantra counter) ----
+export const japaFor = (id, target) => ({ count: 0, rounds: 0, total: 0, target, ...(state.japa?.[id] || {}) });
+
+export function setJapa(id, value) {
+  state = { ...state, japa: { ...state.japa, [id]: value } };
+  save(); // no listeners: called on every tap
 }
 
 // ---- parayan ----

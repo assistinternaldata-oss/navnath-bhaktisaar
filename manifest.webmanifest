@@ -18,6 +18,7 @@
   ],
   "shortcuts": [
     { "name": "पारायण", "short_name": "पारायण", "url": "./#/parayan", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "मंत्र", "short_name": "मंत्र", "url": "./#/mantra", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] },
     { "name": "व्हिडिओ", "short_name": "व्हिडिओ", "url": "./#/videos", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] },
     { "name": "शोध", "short_name": "शोध", "url": "./#/search", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] }
   ]

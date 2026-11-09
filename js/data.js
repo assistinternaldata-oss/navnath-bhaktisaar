@@ -18,6 +18,15 @@ export function loadChapter(n) {
   return chapters.get(n);
 }
 
+let mantrasP = null;
+/** The mantra list from data/mantras.json. */
+export function loadMantras() {
+  mantrasP ??= fetch('data/mantras.json').then(ok).then((r) => r.json())
+    .then((d) => (d.mantras || []).filter((m) => m && m.id && Array.isArray(m.lines)))
+    .catch((e) => { mantrasP = null; throw e; });
+  return mantrasP;
+}
+
 /** Load every adhyay (for search); reports progress as each one arrives. */
 export async function loadAll(onProgress = () => {}) {
   let done = 0;

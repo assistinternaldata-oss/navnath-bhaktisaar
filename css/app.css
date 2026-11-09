@@ -313,6 +313,67 @@ body[data-view='a'] .tabbar { display: none; }
 .chan-btns { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
 .sub-btn { background: #cc0000; border-color: transparent; color: #fff; }
 
+/* ===== quick links ===== */
+.quick { display: flex; align-items: center; gap: 10px; padding: 12px 14px; font-weight: 600; }
+.quick span:first-of-type { flex: 1; }
+.quick .ic.end { margin-left: 0; }
+.ic.gold { color: var(--gold); }
+.ph-in h1 { font-size: clamp(20px, 5.6vw, 26px); }
+
+/* ===== mantras ===== */
+.intro { margin: 2px 2px 6px; }
+.mlist { list-style: none; margin: 0; padding: 0; }
+.mitem { display: flex; align-items: center; gap: 12px; padding: 14px; }
+.mi-icon {
+  width: 46px; height: 46px; flex: none; border-radius: 50%;
+  display: grid; place-items: center; background: var(--accent-soft); color: var(--accent-strong);
+}
+.mi-body { flex: 1; min-width: 0; display: grid; gap: 1px; }
+.mi-deity { font-size: 13px; font-weight: 700; color: var(--accent); }
+.mi-title { font: 400 20px/1.35 var(--font-pothi); }
+.mi-line { font: 15px/1.6 var(--font-pothi); color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mi-meta { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--muted); margin-top: 2px; }
+.mi-meta span::before { content: '· '; }
+.mitem.featured {
+  border: 0; color: var(--hero-ink);
+  background: radial-gradient(120% 120% at 20% 0%, var(--hero-1), var(--hero-2) 60%, var(--hero-3));
+}
+.mitem.featured .mi-icon { background: rgb(255 244 230 / 0.16); color: var(--hero-ink); }
+.mitem.featured .mi-deity, .mitem.featured .mi-line, .mitem.featured .mi-meta, .mitem.featured .ic { color: var(--hero-ink); opacity: 0.9; }
+.mitem.featured .ic.yt { color: var(--hero-ink); }
+.mchip { margin: 12px 4px 0; text-decoration: none; }
+
+.m-deity { text-align: center; margin: 4px 0 2px; }
+.m-text {
+  text-align: center; padding: 22px 16px;
+  font: var(--pothi-size)/1.95 var(--font-pothi);
+  background: linear-gradient(var(--surface), color-mix(in srgb, var(--accent-soft) 45%, var(--surface)));
+}
+.m-text p { margin: 0 0 0.25em; text-wrap: balance; }
+.japa { text-align: center; }
+.japa-btn {
+  position: relative; width: min(64vw, 240px); aspect-ratio: 1; margin: 6px auto 8px; display: block;
+  border: 0; border-radius: 50%; background: var(--surface-2); color: var(--text); cursor: pointer;
+  touch-action: manipulation; -webkit-user-select: none; user-select: none;
+  box-shadow: inset 0 0 0 1px var(--line), 0 6px 20px rgb(70 35 10 / 0.12);
+}
+.japa-btn:active { transform: scale(0.97); }
+.japa-btn svg { position: absolute; inset: 0; width: 100%; height: 100%; transform: rotate(-90deg); }
+.jr-bg { fill: none; stroke: var(--line); stroke-width: 10; }
+.jr-fg { fill: none; stroke: var(--accent); stroke-width: 10; stroke-linecap: round; transition: stroke-dashoffset 0.25s ease-out; }
+.jb-in { position: relative; display: grid; place-items: center; gap: 0; }
+.jb-num { font: 400 clamp(48px, 16vw, 64px)/1 var(--font-pothi); color: var(--accent-strong); padding-top: 6px; }
+.jb-of { font-size: 15px; color: var(--muted); font-weight: 600; }
+.japa-btn.pulse .jb-num { animation: pulse 0.25s ease-out; }
+@keyframes pulse { 50% { transform: scale(1.12); } }
+.center { text-align: center; }
+.jstats { display: flex; justify-content: center; gap: 18px; font-weight: 600; margin: 4px 0 14px; }
+.jrow { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 10px; flex-wrap: wrap; }
+.jseg { flex: 0 1 220px; }
+.jseg button { font-family: var(--font-pothi); font-size: 17px; }
+.m-video { margin: 18px 0 6px; }
+.m-note { margin: 14px 4px; font-size: 15px; }
+
 .player { position: fixed; inset: 0; z-index: 90; display: grid; place-items: center; padding: 16px; }
 .pl-backdrop { position: absolute; inset: 0; background: rgb(12 7 4 / 0.8); }
 .pl-sheet {
