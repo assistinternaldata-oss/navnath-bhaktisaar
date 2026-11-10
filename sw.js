@@ -1,7 +1,14 @@
 // Service worker: keeps the whole pothi available offline.
 // Bump VERSION when you add or rename files in SHELL; edits to existing files reach readers on their own.
-const VERSION = 'nbs-v5';
+const VERSION = 'nbs-v6';
 const FONTS = 'nbs-fonts';
+const BHARAT = 'nbs-bharat';   // the 3D world (bharat/): saved when a reader first opens it, not with the pothi
+// Everything the 3D world needs to open offline (its title music is left out: audio is never saved).
+// Keep this list in step with the bharat/ folder when that is updated.
+const BHARAT_FILES = [
+  'bharat/index.html', 'bharat/navnath.css', 'bharat/navnath.js', 'bharat/three.module.min.js',
+  ...['khajuraho', 'kashi', 'dwarka', 'ujjain', 'badri', 'trimbak'].flatMap((p) => [`bharat/models/${p}-far.bin`, `bharat/models/${p}-mid.bin`]),
+];
 
 const CHAPTERS = Array.from({ length: 40 }, (_, k) => `data/adhyay/${String(k + 1).padStart(2, '0')}.json`);
 const FONT_FILES = [
@@ -39,7 +46,7 @@ self.addEventListener('install', (e) => {
 self.addEventListener('activate', (e) => {
   e.waitUntil((async () => {
     const keys = await caches.keys();
-    await Promise.all(keys.filter((k) => k.startsWith('nbs-') && k !== VERSION && k !== FONTS).map((k) => caches.delete(k)));
+    await Promise.all(keys.filter((k) => k.startsWith('nbs-') && k !== VERSION && k !== FONTS && k !== BHARAT).map((k) => caches.delete(k)));
     await self.clients.claim();
   })());
 });
@@ -63,6 +70,15 @@ self.addEventListener('fetch', (e) => {
   // audio streams straight from the network (range requests, large files)
   if (req.headers.has('range') || /\.(mp3|m4a|aac|ogg|opus|wav)$/i.test(url.pathname)) return;
 
+  // The 3D world is a page of its own with large files. They are not fetched until a reader opens
+  // it; after that the saved copy is shown at once and refreshed in the background, so it also
+  // opens offline. (Its page must not be mistaken for the app's own index.html below.)
+  if (url.pathname.includes('/bharat/')) {
+    e.respondWith(staleWhileRevalidate(req, BHARAT));
+    if (req.mode === 'navigate') e.waitUntil(saveBharat());   // opened once, it is all kept
+    return;
+  }
+
   if (req.mode === 'navigate') {
     // only the app page itself falls back to the saved index.html (not embed.html etc.)
     const isShell = url.pathname.endsWith('/') || url.pathname.endsWith('/index.html');
@@ -77,6 +93,15 @@ self.addEventListener('fetch', (e) => {
   // app code, styles, the adhyay list and media links: newest when online, saved copy when offline
   e.respondWith(networkFirst(req));
 });
+
+// fetches whatever of the 3D world is not saved yet; a file that cannot be had is tried again next time
+async function saveBharat() {
+  const cache = await caches.open(BHARAT);
+  await Promise.all(BHARAT_FILES.map(async (file) => {
+    if (await cache.match(file, { ignoreSearch: true })) return;
+    try { await cache.add(file); } catch { /* offline or missing */ }
+  }));
+}
 
 // network first, but don't keep a reader waiting on a bad connection
 async function networkFirst(req, key) {
@@ -96,7 +121,7 @@ async function networkFirst(req, key) {
 
 async function staleWhileRevalidate(req, cacheName) {
   const cache = await caches.open(cacheName);
-  const cached = await cache.match(req, { ignoreSearch: cacheName === VERSION });
+  const cached = await cache.match(req, { ignoreSearch: cacheName === VERSION || cacheName === BHARAT });
   const network = fetch(req)
     .then((res) => {
       if (res.ok || res.type === 'opaque') cache.put(req, res.clone());

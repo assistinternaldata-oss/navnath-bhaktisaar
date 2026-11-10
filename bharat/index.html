@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Navnath Bharatvarsh</title>
+<meta name="description" content="An explorable 3D world of the ancient Bharat of the nine Naths: their places, the great temples, and what they carried.">
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="./navnath.css">
+</head>
+<body>
+<svg class="sprite" width="0" height="0" aria-hidden="true" focusable="false">
+  <symbol id="i-places" viewBox="0 0 24 24"><path d="M12 21s-6.5-6-6.5-11a6.5 6.5 0 0 1 13 0c0 5-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></symbol>
+  <symbol id="i-kit" viewBox="0 0 24 24"><path d="M12 3v18"/><path d="M7 4c0 4 2 6 5 6s5-2 5-6"/><path d="M9.5 21h5"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></symbol>
+  <symbol id="i-sound" viewBox="0 0 24 24"><path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5z"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/></symbol>
+  <symbol id="i-mute" viewBox="0 0 24 24"><path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5z"/><path d="M16 9.5l5 5M21 9.5l-5 5"/></symbol>
+  <symbol id="i-film" viewBox="0 0 24 24"><rect x="3" y="6" width="13" height="12" rx="1.5"/><path d="M16 10.5l5-3v9l-5-3z"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-prev" viewBox="0 0 24 24"><path d="M14.5 5.5L8 12l6.5 6.5"/></symbol>
+  <symbol id="i-next" viewBox="0 0 24 24"><path d="M9.5 5.5L16 12l-6.5 6.5"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5c3 2.6 3 14.4 0 17M12 3.5c-3 2.6-3 14.4 0 17M3.5 12h17"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+  <symbol id="i-trishul" viewBox="0 0 32 32"><path d="M16 3v26"/><path d="M8 5c0 7 3 10 8 10s8-3 8-10"/><path d="M12 29h8"/><path d="M11 19h10"/></symbol>
+</svg>
+
+<div class="app" id="app" data-mode="loading">
+  <canvas class="stage" id="stage" aria-label="A three-dimensional relief of ancient Bharat. Drag to look around."></canvas>
+  <div class="vignette" aria-hidden="true"></div>
+  <div class="labels" id="labels"></div>
+
+  <div class="ui" id="ui">
+    <header class="top">
+      <button class="brand" id="brand" type="button">
+        <svg class="brand-mark" aria-hidden="true"><use href="#i-trishul"/></svg>
+        <span class="brand-text">
+          <span class="brand-dev" lang="hi">नवनाथ भारतवर्ष</span>
+          <span class="brand-lat">Navnath Bharatvarsh</span>
+        </span>
+      </button>
+      <nav class="tools" aria-label="View">
+        <button class="tool" id="btn-places" type="button" aria-expanded="false" aria-controls="index"><svg aria-hidden="true"><use href="#i-places"/></svg><span data-t="places">Places</span></button>
+        <button class="tool" id="btn-kit" type="button"><svg aria-hidden="true"><use href="#i-kit"/></svg><span data-t="kit">Belongings</span></button>
+        <button class="tool" id="btn-time" type="button"><svg aria-hidden="true"><use id="time-icon" href="#i-sun"/></svg><span id="time-label">Dawn</span></button>
+        <button class="tool" id="btn-sound" type="button" aria-pressed="false"><svg aria-hidden="true"><use id="sound-icon" href="#i-mute"/></svg><span data-t="sound">Sound</span></button>
+        <button class="tool" id="btn-film" type="button"><svg aria-hidden="true"><use href="#i-film"/></svg><span data-t="film">Film</span></button>
+        <button class="tool tool-lang" id="btn-lang" type="button" aria-label="Switch language"><span id="lang-label" lang="hi">हिंदी</span></button>
+      </nav>
+    </header>
+
+    <aside class="index" id="index" hidden aria-label="Places">
+      <div class="index-head">
+        <div class="tabs" role="tablist">
+          <button class="tab" role="tab" type="button" id="tab-naths" data-tab="naths" aria-selected="true">Nine Naths</button>
+          <button class="tab" role="tab" type="button" id="tab-births" data-tab="births" aria-selected="false">Births</button>
+          <button class="tab" role="tab" type="button" id="tab-temples" data-tab="temples" aria-selected="false">Temples</button>
+          <button class="tab" role="tab" type="button" id="tab-story" data-tab="story" aria-selected="false">Story</button>
+        </div>
+        <button class="icon-btn" id="index-close" type="button" aria-label="Close the list"><svg aria-hidden="true"><use href="#i-close"/></svg></button>
+      </div>
+      <ol class="index-list" id="index-list"></ol>
+    </aside>
+
+    <article class="leaf" id="leaf" hidden aria-live="polite">
+      <button class="icon-btn leaf-close" id="leaf-close" type="button" aria-label="Close"><svg aria-hidden="true"><use href="#i-close"/></svg></button>
+      <div class="leaf-scroll" id="leaf-scroll">
+        <p class="leaf-shri" aria-hidden="true">॥ श्री ॥</p>
+        <p class="leaf-kind" id="leaf-kind"></p>
+        <h2 class="leaf-title" id="leaf-title"></h2>
+        <p class="leaf-sub" id="leaf-sub"></p>
+        <div class="leaf-tags" id="leaf-tags"></div>
+        <div class="leaf-body" id="leaf-body"></div>
+        <blockquote class="leaf-quote" id="leaf-quote" hidden></blockquote>
+        <dl class="leaf-facts" id="leaf-facts"></dl>
+        <div class="leaf-actions" id="leaf-actions"></div>
+      </div>
+    </article>
+
+    <div class="zoom" aria-label="Zoom">
+      <button class="icon-btn" id="zoom-in" type="button" aria-label="Move closer"><svg aria-hidden="true"><use href="#i-plus"/></svg></button>
+      <button class="icon-btn" id="zoom-out" type="button" aria-label="Move away"><svg aria-hidden="true"><use href="#i-minus"/></svg></button>
+      <button class="icon-btn" id="zoom-home" type="button" aria-label="See the whole land"><svg aria-hidden="true"><use href="#i-home"/></svg></button>
+    </div>
+
+    <footer class="yatra" id="yatra">
+      <button class="icon-btn" id="yatra-prev" type="button" aria-label="Previous stop"><svg aria-hidden="true"><use href="#i-prev"/></svg></button>
+      <button class="yatra-status" id="yatra-status" type="button">
+        <span class="yatra-step" id="yatra-step">Yatra</span>
+        <span class="yatra-name" id="yatra-name">Begin the yatra</span>
+      </button>
+      <button class="icon-btn" id="yatra-next" type="button" aria-label="Next stop"><svg aria-hidden="true"><use href="#i-next"/></svg></button>
+    </footer>
+
+    <p class="hint" id="hint" hidden></p>
+  </div>
+
+  <section class="kit" id="kit" hidden aria-label="What the Naths carried">
+    <header class="kit-head">
+      <div class="kit-heading">
+        <p class="kit-eyebrow" id="kit-eyebrow">नाथ-वेश</p>
+        <h2 class="kit-title" id="kit-title">What the Naths carried</h2>
+      </div>
+      <button class="icon-btn" id="kit-close" type="button" aria-label="Back to the land"><svg aria-hidden="true"><use href="#i-close"/></svg></button>
+    </header>
+    <div class="kit-card" id="kit-card">
+      <p class="kit-source" id="kit-source"></p>
+      <h3 class="kit-name" id="kit-name"></h3>
+      <p class="kit-sub" id="kit-sub"></p>
+      <p class="kit-text" id="kit-text"></p>
+      <blockquote class="kit-quote" id="kit-quote" hidden></blockquote>
+    </div>
+    <div class="kit-strip" id="kit-strip" role="listbox" aria-label="Belongings"></div>
+  </section>
+
+  <section class="intro" id="intro">
+    <div class="intro-card">
+      <a class="home-link" id="home-link" hidden></a>
+      <p class="intro-shri" aria-hidden="true">॥ अलख निरंजन ॥</p>
+      <h1 class="intro-title"><span lang="hi">नवनाथ भारतवर्ष</span></h1>
+      <p class="intro-sub" id="intro-sub">The ancient Bharat of the nine Naths</p>
+      <p class="intro-text" id="intro-text">Walk the land of the Navnath Bhaktisar: the forests, rivers and mountains the nine Naths crossed, the great temples standing whole, and the few things a Nath carried.</p>
+      <div class="intro-row">
+        <button class="primary" id="enter" type="button" disabled><span id="enter-label">Preparing the land…</span></button>
+        <button class="ghost" id="intro-lang" type="button"><span lang="hi">हिंदी में देखें</span></button>
+      </div>
+      <div class="progress" aria-hidden="true"><div class="progress-bar" id="progress-bar"></div></div>
+      <p class="intro-note" id="intro-note">This is a pictorial map: distances are drawn close, and a few places stand a little apart from where they truly are, so that each can be seen.</p>
+    </div>
+  </section>
+
+  <div class="title" id="title" hidden>
+    <div class="title-bar title-bar-top"></div>
+    <div class="title-bar title-bar-bottom"></div>
+    <div class="title-card" id="title-card">
+      <p class="title-kicker" id="title-kicker"></p>
+      <h2 class="title-name" id="title-name"></h2>
+      <p class="title-sub" id="title-sub"></p>
+    </div>
+    <div class="title-main" id="title-main">
+      <p class="title-shri" lang="hi">॥ अलख निरंजन ॥</p>
+      <h1 class="title-head" lang="hi">नवनाथ भारतवर्ष</h1>
+      <p class="title-main-sub" id="title-main-sub"></p>
+    </div>
+    <div class="title-flash" id="title-flash"></div>
+    <div class="title-controls">
+      <button class="icon-btn title-sound" id="title-sound" type="button" aria-pressed="false" aria-label="Sound"><svg aria-hidden="true"><use id="title-sound-icon" href="#i-mute"/></svg></button>
+      <button class="ghost title-skip" id="title-skip" type="button">Skip</button>
+    </div>
+  </div>
+
+  <div class="film" id="film" hidden>
+    <div class="film-bar film-bar-top"></div>
+    <div class="film-bar film-bar-bottom">
+      <p class="film-caption" id="film-caption"></p>
+      <button class="ghost film-exit" id="film-exit" type="button">Leave film</button>
+    </div>
+  </div>
+</div>
+
+<script type="module" src="./navnath.js"></script>
+</body>
+</html>

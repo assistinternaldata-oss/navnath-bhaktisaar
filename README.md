@@ -68,6 +68,14 @@ The मंत्र tab reads `data/mantras.json`, showing mantras in the order 
 
 Each reader's jap counts are saved on their own phone.
 
+## The 3D world (नवनाथ भारतवर्ष)
+
+The home screen has a card, **Bharatvarsh of the Navnaths · 3D**, which opens `bharat/index.html`: an explorable 3D land of the nine Naths, with their places, the great temples, and a title film in which every place rises from the ground. It opens in the reader's language (Marathi readers get the Hindi text; the 3D world has Hindi and English) and has a link back to the pothi.
+
+- `bharat/` is **built in another project** (`apps/navnath-bharat` in the Jansetu repository) and copied here. Don't edit it by hand. To update it, in that project run `node build.mjs` and then `node tools/export-bhaktisaar.mjs <path to this folder>`.
+- It is about 9 MB (the page, three.js, the temple models and the title music). The website does not fetch it until a reader opens the card; after that it is kept for offline use. The Android and iOS apps carry it inside.
+- It needs WebGL 2 (any phone or computer from the last several years). Where that is missing, the 3D page says so; the pothi is unaffected.
+
 ## Correct the pothi text
 
 The text comes from `../NavnathBhaktisaar.docx` (chapter headings must stay as `श्री नवनाथ भक्तिसार पोथी – अध्याय N`). The adhyay summaries come from `../NavnathHeading.docx` and `tools/headings_hi_en.json` (Hindi and English). After editing either file, rebuild:
@@ -127,6 +135,7 @@ npm run sync
 | `tools/build_data.py` | .docx → JSON converter |
 | `tools/serve.py` | local server |
 | `fonts/` | the two typefaces, bundled so nothing loads from Google (`scripts/copy-fonts.mjs`) |
+| `bharat/` | the 3D world, copied in from the Jansetu repository (`apps/navnath-bharat`) |
 | `embed.html` | lets the apps play YouTube videos (YouTube only plays embeds hosted on a website) |
 | `android/`, `ios/`, `capacitor.config.json`, `package.json` | the native app projects |
 | `js/native.js` | phone features (vibration, reminders, sharing) inside the apps; no effect on the website |

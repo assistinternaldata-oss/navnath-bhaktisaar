@@ -15,6 +15,8 @@ const S = {
   navParayan:   { mr: 'पारायण', hi: 'पारायण', en: 'Parayan' },
   navSearch:    { mr: 'शोध', hi: 'खोज', en: 'Search' },
   navMarks:     { mr: 'खुणा', hi: 'बुकमार्क', en: 'Bookmarks' },
+  bharat:       { mr: 'नवनाथांचे भारतवर्ष · 3D', hi: 'नवनाथों का भारतवर्ष · 3D', en: 'Bharatvarsh of the Navnaths · 3D' },
+  bharatHint:   { mr: 'नाथांची स्थाने आणि महामंदिरे त्रिमितीत पहा', hi: 'नाथों के स्थान और महामंदिर त्रि-आयाम में देखें', en: 'See the places of the Naths and the great temples in 3D' },
   navSettings:  { mr: 'सेटिंग्ज', hi: 'सेटिंग्स', en: 'Settings' },
   navVideos:    { mr: 'व्हिडिओ', hi: 'वीडियो', en: 'Videos' },
   navMantra:    { mr: 'मंत्र', hi: 'मंत्र', en: 'Mantras' },

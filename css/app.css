@@ -329,6 +329,7 @@ body[data-view='a'] .tabbar { display: none; }
 /* ===== quick links ===== */
 .quick { display: flex; align-items: center; gap: 10px; padding: 12px 14px; font-weight: 600; }
 .quick span:first-of-type { flex: 1; }
+.quick small { display: block; margin-top: 1px; font-size: 0.82em; font-weight: 400; color: var(--muted); }
 .quick .ic.end { margin-left: 0; }
 .ic.gold { color: var(--gold); }
 .ph-in h1 { font-size: clamp(20px, 5.6vw, 26px); }

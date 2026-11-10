@@ -6,7 +6,8 @@ import { fileURLToPath } from 'node:url';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const out = join(root, 'www');
-const items = ['index.html', 'manifest.webmanifest', 'css', 'fonts', 'js', 'data', 'icons'];
+// bharat/ is the 3D world (built in another project; see the README)
+const items = ['index.html', 'manifest.webmanifest', 'css', 'fonts', 'js', 'data', 'icons', 'bharat'];
 
 rmSync(out, { recursive: true, force: true });
 mkdirSync(out);

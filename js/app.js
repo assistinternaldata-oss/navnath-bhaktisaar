@@ -31,6 +31,7 @@ const ICONS = {
   check: '<path d="M20 6.5 9.5 17 4 11.5"/>',
   x: '<path d="M18 6 6 18M6 6l12 12"/>',
   download: '<path d="M12 3.5v11m0 0-4.2-4.2m4.2 4.2 4.2-4.2M5 20.5h14"/>',
+  temple: '<path d="M12 2.5v2.2"/><path d="M12 4.7c-2.6 2.5-3.9 5.4-3.9 9.3h7.8c0-3.9-1.3-6.8-3.9-9.3z"/><path d="M5 14h14v6.5H5z"/><path d="M10.2 20.5v-3.3a1.8 1.8 0 0 1 3.6 0v3.3"/><path d="M3 20.5h18"/>',
   mala: '<circle cx="12" cy="3.8" r="1.5"/><circle cx="17.2" cy="5.6" r="1.5"/><circle cx="19.6" cy="10.4" r="1.5"/><circle cx="4.4" cy="10.4" r="1.5"/><circle cx="6.8" cy="5.6" r="1.5"/><circle cx="17.6" cy="15.4" r="1.5"/><circle cx="6.4" cy="15.4" r="1.5"/><path d="M12 15.5v6m-2.2 0h4.4"/><circle cx="12" cy="15.5" r="1.8"/>',
 };
 const ic = (name, cls = '') => `<svg class="ic ${cls}" viewBox="0 0 24 24" aria-hidden="true">${ICONS[name]}</svg>`;
@@ -175,6 +176,7 @@ async function renderHome(my) {
       <a class="card quick" href="#/marks">${ic('bookmark', 'gold')}<span>${t('navMarks')}</span>
         ${s.bookmarks.length ? `<span class="muted">${num(s.bookmarks.length)}</span>` : ''}${ic('chev', 'end muted')}</a>
       ${homeParayanCard(s)}
+      <a class="card quick bharat" href="bharat/index.html?home=..%2F&amp;lang=${getLang()}">${ic('temple', 'gold')}<span>${t('bharat')}<small>${t('bharatHint')}</small></span>${ic('chev', 'end muted')}</a>
       <div id="install-banner-slot">${installBanner()}</div>
       ${homeSeries(vids)}
       <section class="list-sec" aria-labelledby="all-h">
