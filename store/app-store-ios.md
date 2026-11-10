@@ -13,11 +13,13 @@ Prepared 10 November 2026 from the project at `E:\Navnath\bhaktisaar-app`.
 | Item | Status |
 | --- | --- |
 | Android app | On Google Play. Internal testing build 1.0.0 (6) is live, and the closed test plus store listing were sent for Google review on 9 Nov 2026. |
-| iOS project | Ready in the repo (Capacitor 8). GitHub Actions compiles it on every push but hasn't yet produced an App Store build. |
-| Bundle ID `shop.shridarshan.navnath` | **Not registered yet** in the Apple Developer account (checked 9 Nov 2026). |
-| App Store Connect app record | **Not created yet.** |
-| iPhone screenshots | **Not made yet.** The Android ones (1080×2160) are the wrong size for Apple. |
-| Local project changes not yet on GitHub | iPhone-only (`TARGETED_DEVICE_FAMILY = 1`) and version `1.0.0` (`MARKETING_VERSION`) in `ios/App/App.xcodeproj/project.pbxproj`. Until they're pushed, a build made from GitHub supports iPad too, so Apple will ask for iPad screenshots, and it shows version 1.0. |
+| Bundle ID `shop.shridarshan.navnath` | Registered 10 Nov 2026 under team 2M8GC94R7G. |
+| App Store Connect app | Created 10 Nov 2026 (Apple ID 6833033336, SKU `navnath-bhaktisaar-ios`). Version 1.0.0 is in "Prepare for Submission". |
+| Builds | Every push to `main` signs the app and uploads it to TestFlight (GitHub Actions). **Build 10** is processed and attached to version 1.0.0. |
+| Signing | API key "Navnath Bhaktisaar CI" (App Manager, used only to upload) plus our own Apple Distribution certificate and App Store profile, which expire 10 Nov 2027. Copies are kept in `E:\Navnath\AppleSigning`, outside the repo. |
+| Listing | Marathi, Hindi and English (U.S.) texts are all filled in (section 7). The 7 iPhone screenshots in `store/ios-screenshots/` (1320 × 2868) are uploaded. |
+| App information | Categories Books / Reference. Content rights: yes, with rights. Age rating 13+ (Apple's calculation). App Privacy "Data Not Collected" is published. Price is free in all 175 countries. Manual release after approval. |
+| **Still open** | App Review contact **phone number** (Apple requires it in +91 format), which also lets the contact name, email and reviewer notes save. Then **Add for Review → Submit**. |
 
 ---
 
@@ -144,7 +146,7 @@ The bundle ID must be registered and the App Store Connect app record must exist
 
 ## 7. Version 1.0.0 page — text for each language
 
-The limits are App Store limits, and every text below fits within them. Don't mention Android or Google Play anywhere in the iOS listing.
+The limits are App Store limits, and every text below fits within them. Don't mention Android or Google Play anywhere in the iOS listing. **App Store Connect rejects emoji in descriptions** ("invalid characters"), so the live descriptions are these texts without the 📖 🪔 📿 🎬 🌐 🔒 emoji.
 
 ### Marathi (primary)
 
