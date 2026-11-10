@@ -110,7 +110,8 @@ To produce store builds, add these repository secrets (Settings → Secrets and 
 | Secret | What it is |
 | --- | --- |
 | `ANDROID_KEYSTORE_BASE64`, `ANDROID_KEYSTORE_PASSWORD`, `ANDROID_KEY_ALIAS`, `ANDROID_KEY_PASSWORD` | the Play upload key; with these the build also produces `navnath-android-play-bundle` (an `.aab` for Play Console) |
-| `APPLE_API_KEY_ID`, `APPLE_API_ISSUER_ID`, `APPLE_API_KEY_P8`, `APPLE_TEAM_ID` | an App Store Connect API key (Users and Access → Integrations, role App Manager) and your Team ID; with these the build signs the iOS app and uploads it to TestFlight |
+| `APPLE_API_KEY_ID`, `APPLE_API_ISSUER_ID`, `APPLE_API_KEY_P8`, `APPLE_TEAM_ID` | an App Store Connect API key (Users and Access → Integrations, role App Manager) and your Team ID; the build uses the key to upload the iOS app to TestFlight |
+| `IOS_DIST_CERT_P12_BASE64`, `IOS_DIST_CERT_PASSWORD`, `IOS_PROVISIONING_PROFILE_BASE64` | the Apple Distribution certificate (as a `.p12`) and the App Store provisioning profile for `shop.shridarshan.navnath`, which the build signs with. An App Manager key can't use Apple's cloud signing, so the certificate is our own; it expires in November 2027 and then needs replacing. |
 
 **Working on the native projects locally** (needs Node; Android Studio for Android, a Mac with Xcode for iOS):
 
